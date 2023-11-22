@@ -1,0 +1,23 @@
+.form-row {
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  label {
+    text-transform: capitalize;
+    width: 5rem;
+    display: inline-block;
+    flex-basis: content;
+  }
+
+  input,
+  select {
+    padding: 0.25rem 0.5rem;
+  }
+
+  p {
+    margin-top: 0.25rem;
+    font-size: 95%;
+  }
+}

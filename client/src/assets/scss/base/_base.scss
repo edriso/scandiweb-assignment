@@ -32,13 +32,6 @@ ul {
 a {
   text-decoration: none;
   color: $primary;
-  transition: all 200ms ease-in-out;
-  border-bottom: 1px solid transparent;
-
-  &:hover {
-    color: $primary-darker;
-    border-bottom-color: $primary-darker;
-  }
 }
 
 // Text
