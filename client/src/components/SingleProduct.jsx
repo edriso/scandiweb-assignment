@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 function SingleProduct({ product, children }) {
   //   console.log(product);
   return (
-    <div className="products__single-product fade-in">
+    <div className="single-product fade-in">
       {children}
       <p>{product.sku}</p>
       <p>{product.name}</p>
