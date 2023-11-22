@@ -11,6 +11,7 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Products />,
+        errorElement: <ErrorElement />,
         // loader: productsLoader(queryClient),
       },
       {
