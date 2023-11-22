@@ -9,7 +9,9 @@ function Error() {
       <main className="not-found">
         <img src={notFound} alt="not found" />
         <h2>Page not found</h2>
-        <Link to="/">Back home</Link>
+        <Link to="/" className="btn">
+          Back home
+        </Link>
       </main>
     );
   }
