@@ -30,6 +30,7 @@ function Products() {
         btnOneAction={() => navigate('/add-product')}
         btnTwoAction={handleDelete}
         btnTwoId="delete-product-btn"
+        btnTwoDisabled={checkedProducts.length === 0}
       />
 
       <section className="products__product-container">
