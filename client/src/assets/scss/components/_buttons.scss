@@ -16,4 +16,9 @@ button,
   &:hover {
     background-color: $primary-darker;
   }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 }
