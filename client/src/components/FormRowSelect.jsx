@@ -1,15 +1,23 @@
 import PropTypes from 'prop-types';
 
-function FormRowSelect({ name, labelText, defaultValue = '', list, onChange }) {
+function FormRowSelect({
+  name,
+  labelText,
+  defaultValue = '',
+  placeholder,
+  list,
+  onChange,
+}) {
   return (
     <div className="form-row">
       <label htmlFor={name}>{labelText || name}</label>
       <select
         name={name}
         id={name}
-        defaultValue={defaultValue}
+        defaultValue={defaultValue || placeholder}
         onChange={onChange}
       >
+        {placeholder && <option disabled>{placeholder}</option>}
         {list.map((item) => {
           return (
             <option key={item} value={item}>
@@ -26,8 +34,9 @@ FormRowSelect.propTypes = {
   name: PropTypes.string,
   defaultValue: PropTypes.string,
   labelText: PropTypes.string,
-  onChange: PropTypes.func,
+  placeholder: PropTypes.string,
   list: PropTypes.array,
+  onChange: PropTypes.func,
 };
 
 export default FormRowSelect;
