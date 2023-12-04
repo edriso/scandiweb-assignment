@@ -20,8 +20,8 @@ function FormRowSelect({
         {placeholder && <option disabled>{placeholder}</option>}
         {list.map((item) => {
           return (
-            <option key={item} value={item}>
-              {item}
+            <option key={item.id || item} value={item.id || item}>
+              {item.name || item}
             </option>
           );
         })}
