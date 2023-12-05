@@ -4,15 +4,39 @@ $routes = require(BASE_PATH . 'routes.php');
 
 function handleApiRequest($uri, $routes) {
     if (strpos($uri, '/api/') === 0) {
-        if (array_key_exists($uri, $routes)) {
-            return require($routes[$uri]);
+        $routeInfo = $routes[$uri] ?? null;
+        if ($routeInfo) {
+            $controllerClassName = 'Http\Controllers\\' . $routeInfo['controller'];
+            $method = $routeInfo['method'] ?? 'index';
+            callControllerMethod($controllerClassName, $method);    
         } else {
             abort();
         }
     } else {
-        require(CLIENT_PATH . 'index.html');
-        die();
+        require(BASE_PATH . 'public/index.html');
+        exit;
     }
+}
+
+function callControllerMethod($controllerClassName, $method) {
+    try {
+        $controller = new $controllerClassName();
+        $controller->$method();
+    } catch (\Error) {
+        abort('Not found');
+    }
+}
+
+function abort(
+    $errorMessage = 'Resource not found', $statusCode = 404
+) {
+    $response = [
+        'error' => [
+            'message' => $errorMessage,
+        ],
+    ];
+    
+    sendJsonResponse($response, $statusCode);
 }
 
 function sendJsonResponse($responseData, $statusCode = 200) {
@@ -31,18 +55,6 @@ function sendJsonResponse($responseData, $statusCode = 200) {
 
     echo json_encode($response);
     exit;
-}
-
-function abort(
-    $errorMessage = 'Resource not found', $statusCode = 404
-) {
-    $response = [
-        'error' => [
-            'message' => $errorMessage,
-        ],
-    ];
-    
-    sendJsonResponse($response, $statusCode);
 }
 
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
