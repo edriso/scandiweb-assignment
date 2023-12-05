@@ -11,7 +11,7 @@ class ProductPropertiesController
         $db = new Database();
         $properties = $db->query('SELECT * FROM type_properties WHERE type_id = :type_id', [
             'type_id' => $_GET['type_id'],
-        ])->get();
+        ])->getOrFail();
 
         sendJsonResponse($properties);
     }

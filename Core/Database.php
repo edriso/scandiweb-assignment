@@ -46,9 +46,29 @@ class Database {
     public function get() {
         return $this->statement->fetchAll();
     }
+    
+    public function getOrFail() {
+        $result =  $this->statement->fetchAll();
+        
+        if (empty($result)) {
+            abort('Invalid request', 400);
+        }
+
+        return $result;
+    }
 
     public function find() {
         return $this->statement->fetch();
+    }
+
+    public function findOrFail() {
+        $result =  $this->statement->fetch();
+        
+        if (! $result) {
+            abort('Invalid request', 400);
+        }
+
+        return $result;
     }
 
     private function handleError($errorMessage, $errorDetails)
