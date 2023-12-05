@@ -1,0 +1,20 @@
+{
+  "name": "edriso/scandiweb-assignment",
+  "authors": [
+    {
+      "name": "edriso",
+      "email": "edriso.dev@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Core\\": "Core/",
+      "Http\\": "Http/"
+    }
+  },
+  "scripts": {
+    "start": "php -S localhost:8888 -t public",
+    "test": "vendor/bin/test"
+  },
+  "require": {}
+}
