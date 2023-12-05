@@ -1,6 +1,9 @@
 <?php
 
-// use PDO;
+namespace Core;
+
+use PDO;
+use PDOException;
 
 class Database {
     private $connection;
@@ -8,7 +11,6 @@ class Database {
 
     public function __construct($env)
     {
-        dd($env);
         try {
             $config = [
                 'host' => $env['DB_HOST'],
@@ -26,16 +28,18 @@ class Database {
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
             ]);
         } catch (PDOException $e) {
-            $this->handleConnectionError($e->getMessage());
+            $this->handleError('Database connection error', $e->getMessage());
         }
     }
 
     public function query($query, $params = []) {
-        $this->statement = $this->connection->prepare($query);
-
-        $this->statement->execute($params);
-
-        return $this;
+        try {
+            $this->statement = $this->connection->prepare($query);
+            $this->statement->execute($params);
+            return $this;
+        } catch (PDOException $e) {
+            $this->handleError('Database query error', $e->getMessage());
+        }
     }
 
     public function get() {
@@ -46,7 +50,7 @@ class Database {
         return $this->statement->fetch();
     }
 
-    private function handleConnectionError($errorMessage)
+    private function handleError($errorMessage, $errorDetails)
     {
         http_response_code(500);
         header('Content-Type: application/json');
@@ -54,8 +58,8 @@ class Database {
         $response = [
             'error' => [
                 'status' => 500,
-                'message' => 'Database connection error',
-                'details' => $errorMessage,
+                'message' => $errorMessage,
+                'details' => $errorDetails,
             ],
         ];
 
