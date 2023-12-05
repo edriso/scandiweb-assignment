@@ -8,10 +8,11 @@ use PDOException;
 class Database {
     private $connection;
     private $statement;
-
-    public function __construct($env)
+    
+    public function __construct()
     {
         try {
+            $env = parse_ini_file(BASE_PATH . '.env');
             $config = [
                 'host' => $env['DB_HOST'],
                 'port' => $env['DB_PORT'],
