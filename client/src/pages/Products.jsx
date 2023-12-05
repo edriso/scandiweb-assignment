@@ -1,10 +1,22 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLoaderData } from 'react-router-dom';
 import { HeaderLayout, SingleProduct } from '../components';
 import { products } from '../utils/products';
+import { apiHandler } from '../utils/apiHandler.js';
+
+export const loader = async () => {
+  const { data } = await apiHandler.get(
+    'https://official-joke-api.appspot.com/random_joke'
+    // '/products'
+  );
+  return data;
+};
 
 function Products() {
   const navigate = useNavigate();
+  const data = useLoaderData();
+  console.log('products', data); //TEMPORARY
+
   const [checkedProducts, setCheckedProducts] = useState([]);
 
   const handleCheckboxChange = (productId) => {
