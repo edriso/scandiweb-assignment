@@ -1,0 +1,3 @@
+<?php
+
+echo 'store product';
