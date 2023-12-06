@@ -50,11 +50,11 @@ class Database {
         return $result;
     }
 
-    public function find() {
+    public function getOne() {
         return $this->statement->fetch();
     }
 
-    public function findOrFail() {
+    public function getOneOrFail() {
         $result =  $this->statement->fetch();
         
         if (! $result) {
