@@ -12,17 +12,9 @@ class Database {
     public function __construct()
     {
         try {
-            $env = parse_ini_file(BASE_PATH . '.env');
-            $config = [
-                'host' => $env['DB_HOST'],
-                'port' => $env['DB_PORT'],
-                'dbname' => $env['DB_NAME'],
-                'user' => $env['DB_USER'],
-                'password' => $env['DB_PASSWORD'],
-                'charset' => 'utf8mb4',
-            ];
+            $config = require(BASE_PATH . 'config.php');
 
-            $dsn = 'mysql:' . http_build_query($config, '', ';');
+            $dsn = 'mysql:' . http_build_query($config['database'], '', ';');
 
             $this->connection = new PDO($dsn, options: [
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
