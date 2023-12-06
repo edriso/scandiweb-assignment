@@ -21,7 +21,7 @@ class Database {
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
             ]);
         } catch (PDOException $e) {
-            $this->handleError('Database connection error', $e->getMessage());
+            $this->handleError('Database connection error');
         }
     }
 
@@ -31,7 +31,8 @@ class Database {
             $this->statement->execute($params);
             return $this;
         } catch (PDOException $e) {
-            $this->handleError('Database query error', $e->getMessage());
+            // $this->handleError('Database query error', $e->getMessage());
+            $this->handleError('Database query error');
         }
     }
 
@@ -63,7 +64,7 @@ class Database {
         return $result;
     }
 
-    private function handleError($errorMessage, $errorDetails)
+    private function handleError($errorMessage)
     {
         http_response_code(500);
         header('Content-Type: application/json');
@@ -72,7 +73,7 @@ class Database {
             'error' => [
                 'status' => 500,
                 'message' => $errorMessage,
-                'details' => $errorDetails,
+                // 'details' => $errorDetails,
             ],
         ];
 
