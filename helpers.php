@@ -27,7 +27,7 @@ function sendJsonResponse($responseData, $statusCode = 200) {
     if (is_array($responseData) && isset($responseData['error'])) {
         $response['error'] = $responseData['error'];
     } else {
-        if (is_array($responseData)) {
+        if (is_array($responseData) && isset($responseData[0])) {
             $response['results'] = count($responseData);
         }
         $response['data'] = $responseData;
