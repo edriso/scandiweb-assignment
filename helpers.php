@@ -37,6 +37,17 @@ function sendJsonResponse($responseData, $statusCode = 200) {
     exit;
 }
 
+function parseJsonRequest() {
+    $jsonData = file_get_contents("php://input");
+    $data = json_decode($jsonData, true);
+
+    if ($data === null) {
+        abort('Invalid JSON data', 400);
+    }
+
+    return $data;
+}
+
 function dd($value) {
     echo "<pre>";
     var_dump($value);
