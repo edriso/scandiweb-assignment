@@ -8,20 +8,20 @@ use PDOException;
 class Database {
     private $connection;
     private $statement;
+    private $config;
     
     public function __construct()
     {
         try {
-            $config = require(BASE_PATH . 'config.php');
-
-            $dsn = 'mysql:' . http_build_query($config['database'], '', ';');
+            $this->config = require(BASE_PATH . 'config.php');
+            $dsn = 'mysql:' . http_build_query($this->config['database'], '', ';');
 
             $this->connection = new PDO($dsn, options: [
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
             ]);
         } catch (PDOException $e) {
-            $this->handleError('Database connection error');
+            $this->handleError('Database connection error', $e->getMessage());
         }
     }
 
@@ -31,8 +31,7 @@ class Database {
             $this->statement->execute($params);
             return $this;
         } catch (PDOException $e) {
-            // $this->handleError('Database query error', $e->getMessage());
-            $this->handleError('Database query error');
+            $this->handleError('Database query error', $e->getMessage());
         }
     }
 
@@ -64,7 +63,7 @@ class Database {
         return $result;
     }
 
-    private function handleError($errorMessage)
+    private function handleError($errorMessage, $errorDetails = '')
     {
         http_response_code(500);
         header('Content-Type: application/json');
@@ -73,9 +72,12 @@ class Database {
             'error' => [
                 'status' => 500,
                 'message' => $errorMessage,
-                // 'details' => $errorDetails,
             ],
         ];
+
+        if ($this->config['app']['env'] !== 'production') {
+            $response['error']['details'] = $errorDetails;
+        }
 
         echo json_encode($response);
         exit;
