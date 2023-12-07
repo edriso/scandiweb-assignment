@@ -2,18 +2,20 @@
 
 namespace Http\Controllers;
 
-use Core\Database;
+use Http\Models\Product;
 
 class ProductsController {
     public function index() {
-        $db = new Database();
-        $products = $db->query('SELECT id, sku, name, price FROM products')->get();
-
+        $products = Product::getAll();
         sendJsonResponse($products);
     }
     
     public function store() {
-        echo 'store product';
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $body = parseJsonRequest();
+            $newProduct = Product::create($body);
+            sendJsonResponse(['product' => $newProduct], 201);
+        }      
     }
 
     public function destroy() {
