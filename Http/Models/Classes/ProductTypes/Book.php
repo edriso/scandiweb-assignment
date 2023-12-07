@@ -5,10 +5,10 @@ namespace Http\Models\Classes\ProductTypes;
 use Http\Models\Product;
 
 class Book extends Product {
+    private $props = ['weight'];
+
     protected function getProperties(): array {
-        return [
-            'weight' => 'numeric'
-        ];
+        return $this->props;
     }
 
     public function getAdditionalInfo(): string {        

@@ -5,11 +5,7 @@ namespace Http\Models\Classes\ProductTypes;
 use Http\Models\Product;
 
 class Furniture extends Product {
-    private $props = [
-        'height' => 'numeric',
-        'width' => 'numeric',
-        'length' => 'numeric'
-    ];
+    private $props = ['height', 'width', 'length'];
 
     protected function getProperties(): array {
         return $this->props;

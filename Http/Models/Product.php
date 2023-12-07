@@ -3,6 +3,7 @@
 namespace Http\Models;
 
 use Core\Database;
+use Http\Models\Classes\ProductProperty;
 use ReflectionClass;
 use InvalidArgumentException;
 
@@ -20,25 +21,42 @@ abstract class Product {
         $this->typeId = $attributes['type_id'] ?? null;
         $this->properties = $attributes['properties'] ?? [];
 
-        // Validate properties based on product type
         self::validateProperties($this->properties);
         // validate for sku if exists // UNFINISHED
     }
 
-    // public function getSKU() {
-    //     return $this->sku;
-    // }
-
-    // public function getName() {
-    //     return $this->name;
-    // }
-
-    // public function getPrice() {
-    //     return $this->price;
-    // }
-
     protected function getInstanceTypeName() {
       return (new ReflectionClass($this))->getShortName();
+    }
+
+    protected function validateProperties($properties) {
+        $instanceTypeName = $this->getInstanceTypeName();
+
+        if (
+            !is_array($properties) || count($properties) !== count($this->getProperties())
+        ) {
+            throw new InvalidArgumentException("{$instanceTypeName} properties must include: " . implode(', ', $this->getProperties()));
+        }
+
+        // Check if the provided property values match the expected data types
+        foreach ($this->getProperties() as $propName) {
+            if (!isset($properties[$propName])) {
+                throw new InvalidArgumentException("Missing property: $propName");
+            }
+
+            $providedValue = $properties[$propName];
+            $expectedType = ProductProperty::getProductPropertyType($instanceTypeName, $propName);
+            if (!self::isValidType($providedValue, $expectedType)) {
+                throw new InvalidArgumentException("Invalid type for property $propName. Expected: $expectedType");
+            }
+        }
+    }
+
+    public static function getAll() {
+        $db = new Database();
+        $query = 'SELECT id, sku, name, price FROM products';
+        $result = $db->query($query)->get();
+        return $result;
     }
 
     public static function create($attributes) {
@@ -47,7 +65,7 @@ abstract class Product {
             throw new \InvalidArgumentException('Missing "typeId" key');
         }
 
-        $productType = 'Http\Models\Classes\ProductTypes\\' . self::getProductType($typeId);
+        $productType = 'Http\Models\Classes\ProductTypes\\' . self::getTypeName($typeId);
         
         $productInstance = new $productType($attributes);
 
@@ -67,58 +85,21 @@ abstract class Product {
         return get_object_vars($productInstance);
     }
 
-    protected static function getProductType($typeId) {
+    protected static function getTypeName($typeId) {
         $db = new Database();
         $query = 'SELECT type_name FROM product_types WHERE id = ?';
-        $productName = $db->query($query, [$typeId])->getOneOrFail();
-        return ucfirst($productName['type_name']);
+        $productType = $db->query($query, [$typeId])->getOneOrFail();
+        return ucfirst($productType['type_name']);
     }
 
     protected static function isValidType($value, $expectedType) {
-        // Implement your custom type validation logic here
-        // For simplicity, this example assumes the provided type is a string
-        // You may need to enhance this based on your specific requirements
-    
-        // Remove whitespaces and convert to lowercase for case-insensitive comparison
-        $expectedType = strtolower(str_replace(' ', '', $expectedType));
-    
-        switch ($expectedType) {
-            case 'numeric':
-                return is_numeric($value);
-            case 'string':
-                return is_string($value);
-            // Add more cases as needed
-    
-            default:
-                return false;
+        if($expectedType === ProductProperty::NUMERIC) {
+            return is_numeric($value);
+        } else if ($expectedType === ProductProperty::STRING) {
+            return is_string($value);
+        } else {
+            return false;
         }
-    }
-
-    protected function validateProperties($properties) {
-        if (
-            !is_array($properties) || count($properties) !== count($this->getProperties())
-        ) {
-            throw new InvalidArgumentException("{$this->getInstanceTypeName()} properties must include: " . implode(', ', array_keys($this->getProperties())));
-        }
-
-        // Check if the provided property values match the expected data types
-        foreach ($this->getProperties() as $propName => $expectedType) {
-            if (!isset($properties[$propName])) {
-                throw new InvalidArgumentException("Missing property: $propName");
-            }
-
-            $providedValue = $properties[$propName];
-            if (!self::isValidType($providedValue, $expectedType)) {
-                throw new InvalidArgumentException("Invalid type for property $propName. Expected: $expectedType");
-            }
-        }
-    }
-
-    public static function getAll() {
-        $db = new Database();
-        $query = 'SELECT id, sku, name, price FROM products';
-        $result = $db->query($query)->get();
-        return $result;
     }
 
     abstract protected function getProperties(): array;
