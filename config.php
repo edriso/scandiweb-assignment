@@ -3,6 +3,9 @@
 $env = parse_ini_file(BASE_PATH . '.env');
 
 return [
+    'app' => [
+        'env'=> $env['APP_ENV'],
+    ],
     'database' => [
         'host' => $env['DB_HOST'],
         'port' => $env['DB_PORT'],
