@@ -27,7 +27,6 @@ CREATE TABLE products (
     id INT AUTO_INCREMENT PRIMARY KEY,
     sku VARCHAR(255) UNIQUE NOT NULL,
     name VARCHAR(255) NOT NULL,
-    description TEXT NOT NULL,
     price DECIMAL(10, 2) NOT NULL,
     type_id INT NOT NULL,
     properties JSON,
@@ -56,14 +55,14 @@ VALUES
     ((SELECT id FROM product_types WHERE type_name = 'furniture'), 'length', 'cm');
 
 -- Insert DVD Product
-INSERT INTO products (sku, name, description, price, type_id, properties)
-VALUES ('DVD123', 'DVD Example', 'Description for DVD', 19.99, (SELECT id FROM product_types WHERE type_name = 'DVD'), '{"size": "120"}');
+INSERT INTO products (sku, name, price, type_id, properties)
+VALUES ('DVD123', 'DVD Example', 19.99, (SELECT id FROM product_types WHERE type_name = 'DVD'), '{"size": "120"}');
 -- Insert Book Product
-INSERT INTO products (sku, name, description, price, type_id, properties)
-VALUES ('BOOK456', 'Book Example', 'Description for Book', 29.99, (SELECT id FROM product_types WHERE type_name = 'book'), '{"weight": "1.5"}');
+INSERT INTO products (sku, name, price, type_id, properties)
+VALUES ('BOOK456', 'Book Example', 29.99, (SELECT id FROM product_types WHERE type_name = 'book'), '{"weight": "1.5"}');
 -- Insert Furniture Product
-INSERT INTO products (sku, name, description, price, type_id, properties)
-VALUES ('FURN789', 'Furniture Example', 'Description for Furniture', 199.99, (SELECT id FROM product_types WHERE type_name = 'furniture'), '{"height": "120", "width": "80", "length": "180"}');
+INSERT INTO products (sku, name, price, type_id, properties)
+VALUES ('FURN789', 'Furniture Example', 199.99, (SELECT id FROM product_types WHERE type_name = 'furniture'), '{"height": "120", "width": "80", "length": "180"}');
 
 SELECT * FROM product_types;
 SELECT * FROM type_properties;
