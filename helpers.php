@@ -20,10 +20,6 @@ function sendJsonResponse($responseData, $statusCode = 200) {
     http_response_code($statusCode);
     header('Content-Type: application/json');
 
-    $response = [
-        'status' => $statusCode,
-    ];
-
     if (is_array($responseData) && isset($responseData['error'])) {
         $response['error'] = $responseData['error'];
     } else {
