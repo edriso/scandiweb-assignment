@@ -15,18 +15,29 @@ abstract class Product {
     protected $properties;
 
     public function __construct($attributes) {
-        $this->sku = $attributes['sku'] ?? null;
-        $this->name = $attributes['name'] ?? null;
-        $this->price = $attributes['price'] ?? null;
-        $this->typeId = $attributes['type_id'] ?? null;
+        $this->validateMandatoryFields($attributes);
+        
+        $this->sku = $attributes['sku'];
+        $this->name = $attributes['name'];
+        $this->price = $attributes['price'];
+        $this->typeId = $attributes['type_id'];
         $this->properties = $attributes['properties'] ?? [];
-
-        self::validateProperties($this->properties);
-        // validate for sku if exists // UNFINISHED
+        
+        $this->validateProperties($this->properties);
     }
 
     protected function getInstanceTypeName() {
       return (new ReflectionClass($this))->getShortName();
+    }
+
+    protected function validateMandatoryFields($attributes) {
+        $mandatoryAttributes = ['sku', 'name', 'price', 'type_id'];
+    
+        foreach ($mandatoryAttributes as $attribute) {
+            if (!isset($attributes[$attribute]) || empty($attributes[$attribute])) {
+                throw new InvalidArgumentException("Missing or empty attribute: $attribute");
+            }
+        }
     }
 
     protected function validateProperties($properties) {
@@ -60,12 +71,7 @@ abstract class Product {
     }
 
     public static function create($attributes) {
-        $typeId = $attributes['type_id'];
-        if (!isset($typeId)) {
-            throw new \InvalidArgumentException('Missing "typeId" key');
-        }
-
-        $productType = 'Http\Models\Classes\ProductTypes\\' . self::getTypeName($typeId);
+        $productType = 'Http\Models\Classes\ProductTypes\\' . self::getTypeName($attributes['type_id']);
         
         $productInstance = new $productType($attributes);
 
