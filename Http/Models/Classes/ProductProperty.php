@@ -2,6 +2,7 @@
 
 namespace Http\Models\Classes;
 
+// PROBABLY IT'S BETTER TO STORE DATA TYPES ON DB??
 class ProductProperty {
     const NUMERIC = 'numeric';
     const STRING = 'string';
