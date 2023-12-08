@@ -10,8 +10,8 @@ class DVD extends Product {
     protected function getProperties(): array {
         return $this->props;
     }
-    
-    public function getAdditionalInfo(): string {
-        return 'Size: ' . $this->properties['size'] . ' MB';
+
+    public static function description(array $properties): string {
+        return 'Size: ' . $properties['size'] . ' MB';
     }
 }

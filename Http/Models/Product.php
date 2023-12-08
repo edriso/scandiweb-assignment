@@ -78,9 +78,21 @@ abstract class Product {
 
     public static function getAll() {
         $db = new Database();
-        $query = 'SELECT id, sku, name, price, type_id FROM products';
-        $result = $db->query($query)->get();
-        return $result;
+        $query = 'SELECT p.id, p.sku, p.name, p.price, p.type_id, p.properties, t.type_name 
+                  FROM products p
+                  JOIN product_types t ON p.type_id = t.id';
+        
+        $productsData = $db->query($query)->get();
+    
+        $products = [];
+        
+        foreach ($productsData as $productData) {
+            $productType = 'Http\Models\Classes\ProductTypes\\' . ucfirst($productData['type_name']);
+            $productData['description'] = $productType::description(json_decode($productData['properties'], true));
+            $products[] = $productData;
+        }
+    
+        return $products;
     }
 
     public static function create($attributes) {
@@ -111,5 +123,5 @@ abstract class Product {
     }
 
     abstract protected function getProperties(): array;
-    abstract public function getAdditionalInfo(): string;
+    abstract public static function description(array $properties): string;
 }

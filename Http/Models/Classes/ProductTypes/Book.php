@@ -11,7 +11,7 @@ class Book extends Product {
         return $this->props;
     }
 
-    public function getAdditionalInfo(): string {        
-        return 'Weight: ' . $this->properties['weight'] . ' KG';
+    public static function description(array $properties): string {
+        return 'Weight: ' . $properties['weight'] . ' KG';
     }
 }

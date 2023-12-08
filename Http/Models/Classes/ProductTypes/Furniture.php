@@ -11,7 +11,7 @@ class Furniture extends Product {
         return $this->props;
     }
 
-    public function getAdditionalInfo(): string {
-        return 'Dimensions: ' . $this->properties['height'] . 'x' . $this->properties['width'] . 'x' . $this->properties['length'];
+    public static function description(array $properties): string {
+        return 'Dimensions: ' . $properties['height'] . 'x' . $properties['width'] . 'x' . $properties['length'];
     }
 }
