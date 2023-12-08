@@ -19,6 +19,14 @@ class ProductsController {
     }
 
     public function destroy() {
-        echo 'destroy product';
+        if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
+            $body = parseJsonRequest();
+            $productIds = reset($body);
+            if (!is_array($productIds) || empty($productIds)) {
+                abort('Invalid request. Expected an array of product IDs.', 400);
+            }
+            Product::deleteByIds($productIds);
+            sendJsonResponse([], 204);
+        }
     }
 }

@@ -76,11 +76,29 @@ abstract class Product {
         }
     }
 
+    protected static function getTypeName($typeId) {
+        $db = new Database();
+        $query = 'SELECT type_name FROM product_types WHERE id = ?';
+        $productType = $db->query($query, [$typeId])->getOneOrFail();
+        return ucfirst($productType['type_name']);
+    }
+
+    protected static function areValidIds(array $ids) {
+        foreach ($ids as $id) {
+            if (!is_numeric($id) || $id <= 0) {
+                return false;
+            }
+        }
+    
+        return true;
+    }
+
     public static function getAll() {
         $db = new Database();
         $query = 'SELECT p.id, p.sku, p.name, p.price, p.type_id, p.properties, t.type_name 
                   FROM products p
-                  JOIN product_types t ON p.type_id = t.id';
+                  JOIN product_types t ON p.type_id = t.id
+                  ORDER BY p.id DESC';
         
         $productsData = $db->query($query)->get();
     
@@ -115,11 +133,16 @@ abstract class Product {
         return get_object_vars($productInstance);
     }
 
-    protected static function getTypeName($typeId) {
+    public static function deleteByIds(array $productIds) {
+        if (!self::areValidIds($productIds)) {
+            abort('Invalid product(s) ID.', 400);
+        }
+
         $db = new Database();
-        $query = 'SELECT type_name FROM product_types WHERE id = ?';
-        $productType = $db->query($query, [$typeId])->getOneOrFail();
-        return ucfirst($productType['type_name']);
+        $placeholders = implode(',', array_fill(0, count($productIds), '?'));
+
+        $query = "DELETE FROM products WHERE id IN ($placeholders)";
+        $db->query($query, $productIds);
     }
 
     abstract protected function getProperties(): array;
