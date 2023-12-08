@@ -15,7 +15,7 @@ class ProductsController {
             $body = parseJsonRequest();
             $newProduct = Product::create($body);
             sendJsonResponse(['product' => $newProduct], 201);
-        }      
+        }
     }
 
     public function destroy() {
