@@ -107,6 +107,7 @@ abstract class Product {
         foreach ($productsData as $productData) {
             $productType = 'Http\Models\Classes\ProductTypes\\' . ucfirst($productData['name']);
             $productData['description'] = $productType::description(json_decode($productData['properties'], true));
+            unset($productData['properties'], $productData['type_id']);
             $products[] = $productData;
         }
     
