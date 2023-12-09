@@ -27,12 +27,12 @@ function Products() {
   };
 
   const handleDelete = async () => {
-    const response = await apiHandler.delete(
-      `/delete-products?productIds=${checkedProducts.join()}`
-    );
-
-    if (response.status === 204 || response.status === 200) {
-      console.log('success'); // TEMPORARY
+    try {
+      await apiHandler.delete(
+        `/delete-products?productIds=${checkedProducts.join()}`
+      );
+    } catch (error) {
+      console.log('Something went wrong'); // TEMPORARY
     }
 
     return navigate('/');
