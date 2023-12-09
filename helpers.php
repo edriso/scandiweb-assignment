@@ -43,7 +43,7 @@ function sendJsonResponse($data, $statusCode = 200) {
 }
 
 function parseJsonRequest() {
-    $jsonData = file_get_contents("php://input");
+    $jsonData = file_get_contents('php://input');
     $data = json_decode($jsonData, true);
 
     if ($data === null) {
@@ -54,9 +54,9 @@ function parseJsonRequest() {
 }
 
 function dd($value) {
-    echo "<pre>";
+    echo '<pre>';
     var_dump($value);
-    echo "</pre>";
+    echo '</pre>';
 
     die();
 }
