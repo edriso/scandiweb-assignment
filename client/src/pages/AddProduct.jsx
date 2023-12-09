@@ -48,15 +48,13 @@ function AddProduct() {
         <FormRow name="sku" labelText="SKU" />
         <FormRow name="name" />
         <FormRow type="number" labelText="Price ($)" name="price" />
-        {productTypes.length && (
-          <FormRowSelect
-            labelText="Type switcher"
-            name="productType"
-            placeholder="Please Select Type"
-            list={productTypes}
-            onChange={(e) => handleTypeChange(e.target.value)}
-          />
-        )}
+        <FormRowSelect
+          labelText="Type switcher"
+          name="productType"
+          placeholder="Please Select Type"
+          list={productTypes}
+          onChange={(e) => handleTypeChange(e.target.value)}
+        />
 
         {!!selectedTypeProperties.length && (
           <div id={selectedType.name} className="product-type-container">

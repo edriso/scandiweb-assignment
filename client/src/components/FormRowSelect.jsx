@@ -12,6 +12,7 @@ function FormRowSelect({
     <div className="form-row">
       <label htmlFor={name}>{labelText || name}</label>
       <select
+        className="text-capitalize"
         name={name}
         id={name}
         defaultValue={defaultValue || placeholder}
