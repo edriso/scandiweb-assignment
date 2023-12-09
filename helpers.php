@@ -16,20 +16,24 @@ function abort(
     sendJsonResponse($response, $statusCode);
 }
 
-function sendJsonResponse($responseData, $statusCode = 200) {
+function sendJsonResponse($data, $statusCode = 200) {
     http_response_code($statusCode);
     header('Content-Type: application/json');
 
     if ($statusCode !== 204) {
         $response = [];
 
-        if (is_array($responseData) && isset($responseData['error'])) {
-            $response['error'] = $responseData['error'];
+        if (is_array($data) && isset($data['error'])) {
+            $response['error'] = $data['error'];
         } else {
-            if (is_array($responseData) && isset($responseData[0])) {
-                $response['results'] = count($responseData);
+            $dataKey = array_keys($data)[0] ?? null;
+
+            if ($dataKey !== null && is_array(reset($data[$dataKey]))) {
+                $response['data']['results'] = count($data[$dataKey]);
+                $response['data'][$dataKey] = $data[$dataKey];
+            } else {
+                $response['data'] = $data;
             }
-            $response['data'] = $responseData;
         }
 
         echo json_encode($response);

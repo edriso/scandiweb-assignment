@@ -7,7 +7,7 @@ use Http\Models\Product;
 class ProductsController {
     public function index() {
         $products = Product::getAll();
-        sendJsonResponse($products);
+        sendJsonResponse(['products' => $products]);
     }
     
     public function store() {
