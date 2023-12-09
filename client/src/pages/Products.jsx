@@ -26,8 +26,16 @@ function Products() {
     });
   };
 
-  const handleDelete = () => {
-    console.log('Selected Product IDs:', checkedProducts);
+  const handleDelete = async () => {
+    const response = await apiHandler.delete(
+      `/delete-products?productIds=${checkedProducts.join()}`
+    );
+
+    if (response.status === 204 || response.status === 200) {
+      console.log('success'); // TEMPORARY
+    }
+
+    return navigate('/');
   };
 
   return (
