@@ -1,21 +1,18 @@
 import { useState } from 'react';
 import { useNavigate, useLoaderData } from 'react-router-dom';
 import { HeaderLayout, SingleProduct } from '../components';
-import { products } from '../utils/products';
 import { apiHandler } from '../utils/apiHandler.js';
 
 export const loader = async () => {
-  const { data } = await apiHandler.get(
-    'https://official-joke-api.appspot.com/random_joke'
-    // '/products'
-  );
+  const { data } = await apiHandler.get('/products');
   return data;
 };
 
 function Products() {
   const navigate = useNavigate();
-  const data = useLoaderData();
-  console.log('products', data); //TEMPORARY
+  const {
+    data: { products },
+  } = useLoaderData();
 
   const [checkedProducts, setCheckedProducts] = useState([]);
 
@@ -46,18 +43,22 @@ function Products() {
       />
 
       <section className="products__product-container">
-        {products.map((product) => {
-          return (
-            <SingleProduct key={product.id} product={product}>
-              <input
-                type="checkbox"
-                name="delete-checkbox"
-                value={product.id}
-                onChange={() => handleCheckboxChange(product.id)}
-              />
-            </SingleProduct>
-          );
-        })}
+        {products.length ? (
+          products.map((product) => {
+            return (
+              <SingleProduct key={product.id} product={product}>
+                <input
+                  type="checkbox"
+                  name="delete-checkbox"
+                  value={product.id}
+                  onChange={() => handleCheckboxChange(product.id)}
+                />
+              </SingleProduct>
+            );
+          })
+        ) : (
+          <p>No products to show</p>
+        )}
       </section>
     </main>
   );
