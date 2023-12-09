@@ -69,14 +69,22 @@ class Database {
         header('Content-Type: application/json');
 
         $response = [
-            'error' => [
-                'status' => 500,
-                'message' => $errorMessage,
-            ],
+            'message' => $errorMessage,
         ];
 
+        if (preg_match("/Duplicate entry '(.*?)' for key '(.*?)'/", $errorDetails, $matches)) {
+            $value = $matches[1];
+            $fieldName = strtoupper(preg_replace('/^[^.]+\\./', '', $matches[2]));
+
+            if (!empty($fieldName)) {
+                $response['message'] = "Duplicate value '$value' for field $fieldName";
+            } else {
+                $response['message'] = 'Duplicate value for a field.';
+            }
+        }
+
         if ($this->config['app']['env'] !== 'production') {
-            $response['error']['details'] = $errorDetails;
+            $response['details'] = $errorDetails;
         }
 
         echo json_encode($response);
