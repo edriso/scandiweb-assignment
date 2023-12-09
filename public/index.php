@@ -3,10 +3,10 @@
 const BASE_PATH = __DIR__.'/../';
 
 $config = require(BASE_PATH . 'config.php');
-header('Access-Control-Allow-Methods: GET, POST, DELETE');
 if ($config['app']['env'] === 'development') {
     header('Access-Control-Allow-Origin: *');
 }
+header('Access-Control-Allow-Methods: GET, POST, DELETE');
 
 require(BASE_PATH . 'vendor/autoload.php');
 
