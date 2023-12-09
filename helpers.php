@@ -8,9 +8,7 @@ function abort(
     $errorMessage = 'Resource not found', $statusCode = 404
 ) {
     $response = [
-        'error' => [
-            'message' => $errorMessage,
-        ],
+        'message' => $errorMessage,
     ];
     
     sendJsonResponse($response, $statusCode);
@@ -23,8 +21,8 @@ function sendJsonResponse($data, $statusCode = 200) {
     if ($statusCode !== 204) {
         $response = [];
 
-        if (is_array($data) && isset($data['error'])) {
-            $response['error'] = $data['error'];
+        if (is_array($data) && isset($data['message'])) {
+            $response['message'] = $data['message'];
         } else {
             $dataKey = array_keys($data)[0] ?? null;
 
