@@ -5,10 +5,10 @@ USE scandiweb_test_products;
 -- Table for Types
 CREATE TABLE product_types (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    type_name VARCHAR(100) UNIQUE NOT NULL,
+    name VARCHAR(100) UNIQUE NOT NULL,
     measure_name VARCHAR(100) NOT NULL,
     measure_unit VARCHAR(50) NOT NULL,
-    INDEX (type_name)
+    INDEX (name)
 );
 
 -- Table for Type Properties
@@ -35,34 +35,34 @@ CREATE TABLE products (
 );
 
 -- Insert DVD Type
-INSERT INTO product_types (type_name, measure_name, measure_unit) VALUES ('DVD', 'size', 'MB');
+INSERT INTO product_types (name, measure_name, measure_unit) VALUES ('DVD', 'size', 'MB');
 -- Insert Book Type
-INSERT INTO product_types (type_name, measure_name, measure_unit) VALUES ('book', 'weight', 'kg');
+INSERT INTO product_types (name, measure_name, measure_unit) VALUES ('book', 'weight', 'kg');
 -- Insert Furniture Type
-INSERT INTO product_types (type_name, measure_name, measure_unit) VALUES ('furniture', 'Dimenions', 'HxWxL');
+INSERT INTO product_types (name, measure_name, measure_unit) VALUES ('furniture', 'Dimenions', 'HxWxL');
 
 -- Assuming 'DVD' type has a property named 'Size'
 INSERT INTO type_properties (type_id, name, unit)
-VALUES ((SELECT id FROM product_types WHERE type_name = 'DVD'), 'size', 'MB');
+VALUES ((SELECT id FROM product_types WHERE name = 'DVD'), 'size', 'MB');
 -- Assuming 'book' type has a property named 'Weight'
 INSERT INTO type_properties (type_id, name, unit)
-VALUES ((SELECT id FROM product_types WHERE type_name = 'book'), 'weight', 'kg');
+VALUES ((SELECT id FROM product_types WHERE name = 'book'), 'weight', 'kg');
 -- Assuming 'furniture' type has properties named 'Height', 'Width', and 'Length'
 INSERT INTO type_properties (type_id, name, unit)
 VALUES 
-    ((SELECT id FROM product_types WHERE type_name = 'furniture'), 'height', 'cm'),
-    ((SELECT id FROM product_types WHERE type_name = 'furniture'), 'width', 'cm'),
-    ((SELECT id FROM product_types WHERE type_name = 'furniture'), 'length', 'cm');
+    ((SELECT id FROM product_types WHERE name = 'furniture'), 'height', 'cm'),
+    ((SELECT id FROM product_types WHERE name = 'furniture'), 'width', 'cm'),
+    ((SELECT id FROM product_types WHERE name = 'furniture'), 'length', 'cm');
 
 -- Insert DVD Product
 INSERT INTO products (sku, name, price, type_id, properties)
-VALUES ('DVD123', 'DVD Example', 19.99, (SELECT id FROM product_types WHERE type_name = 'DVD'), '{"size": "120"}');
+VALUES ('DVD123', 'DVD Example', 19.99, (SELECT id FROM product_types WHERE name = 'DVD'), '{"size": "120"}');
 -- Insert Book Product
 INSERT INTO products (sku, name, price, type_id, properties)
-VALUES ('BOOK456', 'Book Example', 29.99, (SELECT id FROM product_types WHERE type_name = 'book'), '{"weight": "1.5"}');
+VALUES ('BOOK456', 'Book Example', 29.99, (SELECT id FROM product_types WHERE name = 'book'), '{"weight": "1.5"}');
 -- Insert Furniture Product
 INSERT INTO products (sku, name, price, type_id, properties)
-VALUES ('FURN789', 'Furniture Example', 199.99, (SELECT id FROM product_types WHERE type_name = 'furniture'), '{"height": "120", "width": "80", "length": "180"}');
+VALUES ('FURN789', 'Furniture Example', 199.99, (SELECT id FROM product_types WHERE name = 'furniture'), '{"height": "120", "width": "80", "length": "180"}');
 
 SELECT * FROM product_types;
 SELECT * FROM type_properties;

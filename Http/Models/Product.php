@@ -78,9 +78,9 @@ abstract class Product {
 
     protected static function getTypeName($typeId) {
         $db = new Database();
-        $query = 'SELECT type_name FROM product_types WHERE id = ?';
+        $query = 'SELECT name FROM product_types WHERE id = ?';
         $productType = $db->query($query, [$typeId])->getOneOrFail();
-        return ucfirst($productType['type_name']);
+        return ucfirst($productType['name']);
     }
 
     protected static function areValidIds(array $ids) {
@@ -95,7 +95,7 @@ abstract class Product {
 
     public static function getAll() {
         $db = new Database();
-        $query = 'SELECT p.id, p.sku, p.name, p.price, p.type_id, p.properties, t.type_name 
+        $query = 'SELECT p.id, p.sku, p.name, p.price, p.type_id, p.properties, t.name 
                   FROM products p
                   JOIN product_types t ON p.type_id = t.id
                   ORDER BY p.id DESC';
@@ -105,7 +105,7 @@ abstract class Product {
         $products = [];
         
         foreach ($productsData as $productData) {
-            $productType = 'Http\Models\Classes\ProductTypes\\' . ucfirst($productData['type_name']);
+            $productType = 'Http\Models\Classes\ProductTypes\\' . ucfirst($productData['name']);
             $productData['description'] = $productType::description(json_decode($productData['properties'], true));
             $products[] = $productData;
         }
