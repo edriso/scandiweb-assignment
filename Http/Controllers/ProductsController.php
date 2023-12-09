@@ -13,6 +13,9 @@ class ProductsController {
     public function store() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $body = parseJsonRequest();
+            if (!isset($body['type_id'])) {
+                abort('Missing type_id', 400);
+            }
             $newProduct = Product::create($body);
             sendJsonResponse(['product' => $newProduct], 201);
         }

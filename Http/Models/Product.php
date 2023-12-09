@@ -4,7 +4,6 @@ namespace Http\Models;
 
 use Core\Database;
 use Http\Models\Classes\ProductProperty;
-use InvalidArgumentException;
 use ReflectionClass;
 
 abstract class Product {
@@ -35,7 +34,7 @@ abstract class Product {
 
         foreach ($mandatoryFields as $field) {
             if (!isset($fields[$field]) || empty($fields[$field])) {
-                throw new InvalidArgumentException("Missing or empty field: $field");
+                abort("Missing or empty field: $field", 400);
             }
         }
     }
@@ -45,7 +44,7 @@ abstract class Product {
         $expectedProperties = $this->getProperties();
 
         if (!is_array($properties) || count($properties) !== count($expectedProperties)) {
-            throw new InvalidArgumentException("{$instanceTypeName} properties must include: " . implode(', ', $expectedProperties));
+            abort("{$instanceTypeName} properties must include: " . implode(', ', $expectedProperties), 400);
         }
 
         foreach ($expectedProperties as $propName) {
@@ -55,14 +54,14 @@ abstract class Product {
 
     protected function validateSingleProperty($propName, $properties) {
         if (!isset($properties[$propName])) {
-            throw new InvalidArgumentException("Missing property: $propName");
+            abort("Missing property: $propName", 400);
         }
 
         $providedValue = $properties[$propName];
         $expectedType = ProductProperty::getProductPropertyType($this->getInstanceTypeName(), $propName);
 
         if (!$this->isValidType($providedValue, $expectedType)) {
-            throw new InvalidArgumentException("Invalid type for property $propName. Expected: $expectedType");
+            abort("Invalid type for property $propName. Expected: $expectedType", 400);
         }
     }
 
