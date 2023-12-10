@@ -3,8 +3,9 @@
 namespace Http\Models;
 
 use Core\Database;
-use Http\Models\Classes\ProductProperty;
+use Core\Response;
 use ReflectionClass;
+use Http\Models\Classes\ProductProperty;
 
 abstract class Product {
     protected $sku;
@@ -34,7 +35,7 @@ abstract class Product {
 
         foreach ($mandatoryFields as $field) {
             if (!isset($fields[$field]) || empty($fields[$field])) {
-                abort("Missing or empty field: $field", 400);
+                Response::abort("Missing or empty field: $field", 400);
             }
         }
     }
@@ -44,7 +45,7 @@ abstract class Product {
         $expectedProperties = $this->getProperties();
 
         if (!is_array($properties) || count($properties) !== count($expectedProperties)) {
-            abort("{$instanceTypeName} properties must include: " . implode(', ', $expectedProperties), 400);
+            Response::abort("{$instanceTypeName} properties must include: " . implode(', ', $expectedProperties), 400);
         }
 
         foreach ($expectedProperties as $propName) {
@@ -54,14 +55,14 @@ abstract class Product {
 
     protected function validateSingleProperty($propName, $properties) {
         if (!isset($properties[$propName])) {
-            abort("Missing property: $propName", 400);
+            Response::abort("Missing property: $propName", 400);
         }
 
         $providedValue = $properties[$propName];
         $expectedType = ProductProperty::getProductPropertyType($this->getInstanceTypeName(), $propName);
 
         if (!$this->isValidType($providedValue, $expectedType)) {
-            abort("Invalid type for property $propName. Expected: $expectedType", 400);
+            Response::abort("Invalid type for property $propName. Expected: $expectedType", 400);
         }
     }
 
@@ -135,7 +136,7 @@ abstract class Product {
 
     public static function deleteByIds(array $productIds) {
         if (!self::areValidIds($productIds)) {
-            abort('Invalid product(s) ID.', 400);
+            Response::abort('Invalid product(s) ID.', 400);
         }
 
         $db = new Database();
