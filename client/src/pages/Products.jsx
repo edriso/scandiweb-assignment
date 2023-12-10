@@ -29,6 +29,7 @@ function Products() {
   const handleDelete = async () => {
     try {
       await apiHandler.delete(`/products?productIds=${checkedProducts.join()}`);
+      setCheckedProducts([]);
     } catch (error) {
       console.log('Something went wrong'); // TEMPORARY
     }
