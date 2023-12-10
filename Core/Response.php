@@ -27,6 +27,9 @@ class Response {
     
                 if ($dataKey !== null && is_array(reset($data[$dataKey]))) {
                     $response['data']['results'] = count($data[$dataKey]);
+                    $response['data'][$dataKey] = $data[$dataKey];
+                } else {
+                    $response['data'] = $data;
                 }
                 
                 $response['data'][$dataKey] = $data[$dataKey];
