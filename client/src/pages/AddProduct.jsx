@@ -4,7 +4,7 @@ import { HeaderLayout, FormRow, FormRowSelect } from '../components';
 import { apiHandler } from '../utils/apiHandler.js';
 
 export const loader = async () => {
-  const { data } = await apiHandler.get('/product-types');
+  const { data } = await apiHandler.get('/types');
   return data;
 };
 
@@ -24,9 +24,7 @@ function AddProduct() {
     setSelectedType(selectedProductType);
 
     try {
-      const response = await apiHandler.get(
-        `/type-properties?type_id=${typeId}`
-      );
+      const response = await apiHandler.get(`/properties?type_id=${typeId}`);
       setSelectedTypeProperties(response.data.data);
     } catch (error) {
       console.log(error?.response?.data?.message);
@@ -41,7 +39,7 @@ function AddProduct() {
     };
 
     try {
-      await apiHandler.post('/product', JSON.stringify(productData));
+      await apiHandler.post('/products', JSON.stringify(productData));
       return navigate('/');
     } catch (error) {
       console.log(error?.response?.data?.message);
