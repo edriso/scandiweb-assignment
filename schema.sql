@@ -1,6 +1,6 @@
-DROP DATABASE IF EXISTS scandiweb_test_products;
-CREATE DATABASE scandiweb_test_products;
-USE scandiweb_test_products;
+--DROP DATABASE IF EXISTS scandiweb_test_products;
+--CREATE DATABASE scandiweb_test_products;
+--USE scandiweb_test_products;
 
 -- Table for Types
 CREATE TABLE product_types (
@@ -64,6 +64,6 @@ VALUES ('BOOK456', 'Book Example', 29.99, (SELECT id FROM product_types WHERE na
 INSERT INTO products (sku, name, price, type_id, properties)
 VALUES ('FURN789', 'Furniture Example', 199.99, (SELECT id FROM product_types WHERE name = 'furniture'), '{"height": "120", "width": "80", "length": "180"}');
 
-SELECT * FROM product_types;
-SELECT * FROM type_properties;
-SELECT * FROM products;
+--SELECT * FROM product_types;
+--SELECT * FROM type_properties;
+--SELECT * FROM products;
