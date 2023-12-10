@@ -43,7 +43,7 @@ class Database {
         $result =  $this->statement->fetchAll();
         
         if (empty($result)) {
-            abort('Invalid request', 400);
+            Response::abort('Invalid request', 400);
         }
 
         return $result;
@@ -57,7 +57,7 @@ class Database {
         $result =  $this->statement->fetch();
         
         if (! $result) {
-            abort('Invalid request', 400);
+            Response::abort('Invalid request', 400);
         }
 
         return $result;

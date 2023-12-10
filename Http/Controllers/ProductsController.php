@@ -2,34 +2,36 @@
 
 namespace Http\Controllers;
 
+use Core\Request;
+use Core\Response;
 use Http\Models\Product;
 
 class ProductsController {
     public function index() {
         $products = Product::getAll();
-        sendJsonResponse(['products' => $products]);
+        Response::sendJsonResponse(['products' => $products]);
     }
     
     public function store() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $body = parseJsonRequest();
+            $body = Request::parseJsonRequest();
             if (!isset($body['type_id'])) {
-                abort('Missing type_id', 400);
+                Response::abort('Missing type_id', 400);
             }
             $newProduct = Product::create($body);
-            sendJsonResponse(['product' => $newProduct], 201);
+            Response::sendJsonResponse(['product' => $newProduct], 201);
         }
     }
 
     public function destroy() {
         if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
             if (!isset($_GET['productIds'])) {
-                abort('Invalid request. Missing product IDs.', 400);
+                Response::abort('Invalid request. Missing product IDs.', 400);
             }
             
             $productIds = explode(',', $_GET['productIds']);
             Product::deleteByIds($productIds);
-            sendJsonResponse([], 204);
+            Response::sendJsonResponse([], 204);
         }
     }
 }

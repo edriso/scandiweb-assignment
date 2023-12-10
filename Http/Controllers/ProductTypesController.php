@@ -2,6 +2,7 @@
 
 namespace Http\Controllers;
 
+use Core\Response;
 use Core\Database;
 
 class ProductTypesController {
@@ -12,6 +13,6 @@ class ProductTypesController {
                 id, name, measure_name, measure_unit
             FROM product_types')->get();
 
-        sendJsonResponse($products);
+        Response::sendJsonResponse($products);
     }
 }

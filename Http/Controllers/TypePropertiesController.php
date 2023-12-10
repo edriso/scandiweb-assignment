@@ -2,6 +2,7 @@
 
 namespace Http\Controllers;
 
+use Core\Response;
 use Core\Database;
 
 class TypePropertiesController
@@ -9,7 +10,7 @@ class TypePropertiesController
     public function show() {
         $typeId = filter_input(INPUT_GET, 'type_id', FILTER_VALIDATE_INT);
         if ($typeId === false || $typeId === null) {
-            abort('Invalid or missing type_id parameter', 400);
+            Response::abort('Invalid or missing type_id parameter', 400);
         }
         
         $db = new Database();
@@ -17,6 +18,6 @@ class TypePropertiesController
         $properties = $db->query($query, [
             'type_id' => $typeId,
         ])->getOrFail();
-        sendJsonResponse($properties);
+        Response::sendJsonResponse($properties);
     }
 }
