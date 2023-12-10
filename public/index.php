@@ -11,5 +11,4 @@ header('Access-Control-Allow-Methods: GET, POST, DELETE');
 require(BASE_PATH . 'vendor/autoload.php');
 
 require(BASE_PATH . 'Core/helpers.php');
-require(BASE_PATH . 'Core/Database.php');
 require(BASE_PATH . 'router.php');
