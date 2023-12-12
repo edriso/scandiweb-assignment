@@ -1,7 +1,15 @@
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 function ErrorElement({ message }) {
-  return <h4>{message || 'Something went wrong...'}</h4>;
+  return (
+    <div>
+      <h4>{message || 'Something went wrong...'}</h4>
+      <Link to="/" className="btn">
+        Back home
+      </Link>
+    </div>
+  );
 }
 
 ErrorElement.propTypes = {

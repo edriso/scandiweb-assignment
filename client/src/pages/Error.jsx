@@ -19,6 +19,9 @@ function Error() {
   return (
     <main>
       <h3>Something went wrong</h3>
+      <Link to="/" className="btn">
+        Back home
+      </Link>
     </main>
   );
 }
