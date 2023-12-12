@@ -13,25 +13,21 @@ class ProductsController {
     }
     
     public function store() {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $body = Request::parseJsonRequest();
-            if (!isset($body['type_id'])) {
-                Response::abort('Missing type_id', 400);
-            }
-            $newProduct = Product::create($body);
-            Response::sendJsonResponse(['product' => $newProduct], 201);
+        $body = Request::parseJsonRequest();
+        if (!isset($body['type_id'])) {
+            Response::abort('Missing type_id', 400);
         }
+        $newProduct = Product::create($body);
+        Response::sendJsonResponse(['product' => $newProduct], 201);
     }
 
     public function destroy() {
-        if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
-            if (!isset($_GET['productIds'])) {
-                Response::abort('Invalid request. Missing product IDs.', 400);
-            }
-            
-            $productIds = explode(',', $_GET['productIds']);
-            Product::deleteByIds($productIds);
-            Response::sendJsonResponse([], 204);
+        if (!isset($_GET['productIds'])) {
+            Response::abort('Invalid request. Missing product IDs.', 400);
         }
+        
+        $productIds = explode(',', $_GET['productIds']);
+        Product::deleteByIds($productIds);
+        Response::sendJsonResponse([], 204);
     }
 }
