@@ -6,8 +6,8 @@ function FormRowSelect({
   placeholder,
   defaultValue = '',
   list = [],
-  onChange,
   required = false,
+  onChange,
 }) {
   return (
     <div className="form-row">
@@ -42,8 +42,8 @@ FormRowSelect.propTypes = {
   labelText: PropTypes.string,
   placeholder: PropTypes.string,
   list: PropTypes.array,
-  onChange: PropTypes.func,
   required: PropTypes.bool,
+  onChange: PropTypes.func,
 };
 
 export default FormRowSelect;
