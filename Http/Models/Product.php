@@ -31,7 +31,7 @@ abstract class Product {
     }
 
     protected function validateMandatoryFields($fields) {
-        $mandatoryFields = ['sku', 'name', 'price', 'type_id'];
+        $mandatoryFields = ['sku', 'name', 'price'];
 
         foreach ($mandatoryFields as $field) {
             if (!isset($fields[$field]) || empty($fields[$field])) {
@@ -133,6 +133,10 @@ abstract class Product {
     }
 
     public static function create($attributes) {
+        if (!isset($attributes['type_id'])) {
+            Response::abort('Missing type_id', 400);
+        }
+
         $productType = 'Http\Models\Classes\ProductTypes\\' . self::getTypeName($attributes['type_id']);
 
         $productInstance = new $productType($attributes);
