@@ -37,6 +37,24 @@ abstract class Product {
             if (!isset($fields[$field]) || empty($fields[$field])) {
                 Response::abort("Missing or empty field: $field", 400);
             }
+
+            switch ($field) {
+                case 'price':
+                    if (!is_numeric($fields[$field] || $fields[$field] < 0)) {
+                        Response::abort("Invalid data type for $field. Must be a non-negative number.", 400);
+                    }
+                    break;
+                case 'name':
+                    if (!is_string($fields[$field])) {
+                        Response::abort("Invalid data type for $field. Must be a string.", 400);
+                    }
+                    break;
+                case 'sku':
+                    if (!ctype_alnum($fields[$field])) {
+                        Response::abort("Invalid data for $field. Must be alphanumeric.", 400);
+                    }
+                    break;
+            }
         }
     }
 
