@@ -22,7 +22,7 @@ class ProductsController {
         if (!isset($_GET['productIds'])) {
             Response::abort('Invalid request. Missing productIds parameter', 400);
         }
-        
+
         $productIds = explode(',', $_GET['productIds']);
         Product::deleteByIds($productIds);
         Response::sendJsonResponse([], 204);
