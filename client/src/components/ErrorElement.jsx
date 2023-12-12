@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 
 function ErrorElement({ message }) {
   return (
-    <div>
-      <h4>{message || 'Something went wrong...'}</h4>
+    <div className="throw-error">
+      <h3>{message || 'Something went wrong...'}</h3>
       <Link to="/" className="btn">
         Back home
       </Link>

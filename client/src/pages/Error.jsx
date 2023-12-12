@@ -17,7 +17,7 @@ function Error() {
   }
 
   return (
-    <main>
+    <main className="throw-error">
       <h3>Something went wrong</h3>
       <Link to="/" className="btn">
         Back home
