@@ -6,20 +6,20 @@ function FormRow({
   defaultValue = '',
   labelText,
   onChange,
-  isRequired,
+  required,
 }) {
   return (
     <div className="form-row">
       <label htmlFor={name}>
         {labelText || name}{' '}
-        {isRequired && <span className="input-required">*</span>}
+        {required && <span className="input-required">*</span>}
       </label>
       <input
         type={type}
         id={name}
         name={name}
         defaultValue={defaultValue}
-        required={isRequired}
+        required={required}
         onChange={onChange}
       />
     </div>
@@ -32,7 +32,7 @@ FormRow.propTypes = {
   defaultValue: PropTypes.string,
   labelText: PropTypes.string,
   onChange: PropTypes.func,
-  isRequired: PropTypes.bool,
+  required: PropTypes.bool,
 };
 
 export default FormRow;
