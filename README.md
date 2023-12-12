@@ -83,12 +83,21 @@ To get started, follow these steps:
 
 ## Project Structure
 
-The project structure is designed to maintain clarity and organization. Key directories include:
+The project structure is designed to maintain clarity and organization. Here's a brief overview of the key directories:
 
-- **root directory (/)**: Houses the PHP backend code, encapsulating the core server-side logic.
-- **client/**: Contains the Reactjs frontend, where the user interface is developed and managed.
+- **client/**: This directory houses the ReactJS frontend, serving as the space where the user interface is developed and managed. All frontend-related assets and components are neatly organized within this section.
+
 - **public/**: Serves as the hosting location for index.php and the compiled front end, ensuring accessibility for users.
+
 - **schema.sql**: Represents the backbone of the database, defining its schema and structure.
+
+- **root directory (/)**: At the root level, the PHP backend code resides, containing the essential server-side logic that powers the application. It's further structured for improved organization:
+
+  - **Core/**: This directory holds PHP core models and functions designed for broader usability across projects. It serves as a repository for reusable and foundational code.
+
+  - **routes.php**: This file is the home for API routes, defining paths along with their corresponding controllers and actions. It provides a clear map for handling incoming requests.
+
+  - **Http/**: Within this directory, you'll find controllers and models specific to this application, handling vital server-side logic.
 
 ## API Documentation
 
