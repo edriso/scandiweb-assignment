@@ -10,7 +10,10 @@ function FormRow({
 }) {
   return (
     <div className="form-row">
-      <label htmlFor={name}>{labelText || name}</label>
+      <label htmlFor={name}>
+        {labelText || name}{' '}
+        {isRequired && <span className="input-required">*</span>}
+      </label>
       <input
         type={type}
         id={name}
