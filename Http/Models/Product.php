@@ -80,7 +80,7 @@ abstract class Product {
         $expectedType = ProductProperty::getProductPropertyType($this->getInstanceTypeName(), $propName);
 
         if (!$this->isValidType($providedValue, $expectedType)) {
-            Response::abort("Invalid type for property $propName. Expected: $expectedType", 400);
+            Response::abort("Invalid data type for property $propName. Expected: $expectedType", 400);
         }
     }
 
