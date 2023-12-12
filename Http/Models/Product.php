@@ -51,7 +51,7 @@ abstract class Product {
                     break;
                 case 'sku':
                     if (!ctype_alnum($fields[$field])) {
-                        Response::abort("Invalid data for $field. Must be alphanumeric.", 400);
+                        Response::abort("Invalid value for $field. Must be alphanumeric.", 400);
                     }
                     break;
             }
