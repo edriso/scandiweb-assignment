@@ -32,6 +32,20 @@ function AddProduct() {
     }
   };
 
+  const validateProduct = (product) => {
+    if (!product.sku || !product.name || !product.price || !product.type_id) {
+      toast.error('Please, submit required data');
+      return false;
+    }
+
+    if (isNaN(product.price)) {
+      toast.error('Please, provide the data of indicated type');
+      return false;
+    }
+
+    return true;
+  };
+
   const handleSubmit = async () => {
     const formData = new FormData(formRef.current);
     const productData = {
@@ -39,10 +53,18 @@ function AddProduct() {
       ['properties']: properties,
     };
 
+    if (!validateProduct(productData)) return;
+
     try {
       await apiHandler.post('/products', JSON.stringify(productData));
       return navigate('/');
     } catch (error) {
+      if (error?.response?.data?.message.includes('properties must include')) {
+        return toast.error(`Please, provide ${selectedType.measure_name}`);
+      }
+      if (error?.response?.data?.message.includes('Invalid data type')) {
+        return toast.error('Please, provide the data of indicated type');
+      }
       toast.error(error?.response?.data?.message);
     }
   };
