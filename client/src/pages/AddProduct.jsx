@@ -112,6 +112,7 @@ function AddProduct({ queryClient }) {
           placeholder="Please Select Type"
           list={productTypes}
           onChange={(e) => handleTypeChange(e.target.value)}
+          required
         />
       </form>
 
