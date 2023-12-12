@@ -56,7 +56,7 @@ class Database {
     public function getOneOrFail() {
         $result =  $this->statement->fetch();
         
-        if (! $result) {
+        if (!$result) {
             Response::abort('Invalid request', 400);
         }
 
