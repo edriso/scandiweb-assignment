@@ -10,8 +10,7 @@ class Database {
     private $statement;
     private $config;
     
-    public function __construct()
-    {
+    public function __construct() {
         try {
             $this->config = require(BASE_PATH . 'config.php');
             $dsn = 'mysql:' . http_build_query($this->config['database'], '', ';');
@@ -63,8 +62,7 @@ class Database {
         return $result;
     }
 
-    private function handleError($errorMessage, $errorDetails = '')
-    {
+    private function handleError($errorMessage, $errorDetails = '') {
         http_response_code(500);
         header('Content-Type: application/json');
 
