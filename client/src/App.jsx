@@ -21,11 +21,11 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Products />,
+        element: <Products queryClient={queryClient} />,
       },
       {
         path: 'add-product',
-        element: <AddProduct />,
+        element: <AddProduct queryClient={queryClient} />,
         errorElement: <ErrorElement />,
         loader: addProductLoader(queryClient),
       },

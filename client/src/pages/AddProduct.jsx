@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
@@ -18,7 +19,7 @@ export const loader = (queryClient) => async () => {
   return data;
 };
 
-function AddProduct() {
+function AddProduct({ queryClient }) {
   const { data: productTypes } = useQuery(typesQuery);
   const navigate = useNavigate();
   const formRef = useRef();
@@ -55,7 +56,7 @@ function AddProduct() {
     return true;
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (queryClient) => {
     const formData = new FormData(formRef.current);
     const productData = {
       ...Object.fromEntries(formData),
@@ -66,6 +67,7 @@ function AddProduct() {
 
     try {
       await apiHandler.post('/products', JSON.stringify(productData));
+      queryClient.invalidateQueries(['products']);
       return navigate('/');
     } catch (error) {
       if (error?.response?.data?.message.includes('properties must include')) {
@@ -84,7 +86,7 @@ function AddProduct() {
         title="Product Add"
         btnOneText="Save"
         btnTwoText="Cancel"
-        btnOneAction={handleSubmit}
+        btnOneAction={() => handleSubmit(queryClient)}
         btnTwoAction={() => navigate('/')}
       />
 
@@ -130,5 +132,9 @@ function AddProduct() {
     </main>
   );
 }
+
+AddProduct.propTypes = {
+  queryClient: PropTypes.object,
+};
 
 export default AddProduct;

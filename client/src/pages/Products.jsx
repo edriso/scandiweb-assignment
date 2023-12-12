@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
@@ -5,7 +6,7 @@ import { toast } from 'react-toastify';
 import { HeaderLayout, SingleProduct } from '../components';
 import { apiHandler } from '../utils/apiHandler.js';
 
-function Products() {
+function Products({ queryClient }) {
   const { isLoading, isError, data } = useQuery({
     queryKey: ['products'],
     queryFn: async () => {
@@ -40,6 +41,8 @@ function Products() {
     try {
       await apiHandler.delete(`/products?productIds=${checkedProducts.join()}`);
       setCheckedProducts([]);
+      queryClient.invalidateQueries(['products']);
+      return navigate('/');
     } catch (error) {
       toast.error(error?.response?.data?.message);
     }
@@ -80,5 +83,9 @@ function Products() {
     </main>
   );
 }
+
+Products.propTypes = {
+  queryClient: PropTypes.object,
+};
 
 export default Products;
