@@ -20,7 +20,7 @@ class ProductsController {
 
     public function destroy() {
         if (!isset($_GET['productIds'])) {
-            Response::abort('Invalid request. Missing product IDs.', 400);
+            Response::abort('Invalid request. Missing productIds parameter', 400);
         }
         
         $productIds = explode(',', $_GET['productIds']);
