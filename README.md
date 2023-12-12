@@ -1,6 +1,8 @@
 # Scandiweb Assignment
 
-Welcome to the Scandiweb Junior Developer test assignment repository. This web application, built with PHP, MySQL, Reactjs, and SASS, provides two essential pages:
+Welcome to my repository for Scandiweb Junior Developer test assignment. This web application is crafted using PHP, MySQL, Reactjs, React Query v4 (for efficient query caching), and SASS.
+
+The application offers two essential pages:
 
 1. **Product List Page**: Displaying a comprehensive list of products with various details and supporting delete functionality.
 2. **Add Product Page**: Empowering users to seamlessly add new products to the system.
