@@ -81,6 +81,11 @@ class Database {
             } else {
                 $response['message'] = 'Duplicate value for a field.';
             }
+        } else if (preg_match("/Incorrect (.*?) value: '(.*?)' for column '(.*?)'/", $errorDetails, $matches)) {
+            $value = $matches[2];
+            $fieldName = strtoupper($matches[3]);
+    
+            $response['message'] = "Incorrect value '$value' for field $fieldName";
         }
 
         if ($this->config['app']['env'] !== 'production') {
