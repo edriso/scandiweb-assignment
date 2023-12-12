@@ -54,15 +54,27 @@ VALUES
     ((SELECT id FROM product_types WHERE name = 'furniture'), 'width', 'cm'),
     ((SELECT id FROM product_types WHERE name = 'furniture'), 'length', 'cm');
 
--- Insert DVD Product
+-- Insert 4 DVD Products
 INSERT INTO products (sku, name, price, type_id, properties)
-VALUES ('DVD123', 'DVD Example', 19.99, (SELECT id FROM product_types WHERE name = 'DVD'), '{"size": "120"}');
--- Insert Book Product
+VALUES 
+    ('DVD001', 'DVD Product 1', 15.99, (SELECT id FROM product_types WHERE name = 'DVD'), '{"size": "90"}'),
+    ('DVD002', 'DVD Product 2', 17.99, (SELECT id FROM product_types WHERE name = 'DVD'), '{"size": "120"}'),
+    ('DVD003', 'DVD Product 3', 19.99, (SELECT id FROM product_types WHERE name = 'DVD'), '{"size": "80"}'),
+    ('DVD004', 'DVD Product 4', 21.99, (SELECT id FROM product_types WHERE name = 'DVD'), '{"size": "110"}');
+-- Insert 4 Book Products
 INSERT INTO products (sku, name, price, type_id, properties)
-VALUES ('BOOK456', 'Book Example', 29.99, (SELECT id FROM product_types WHERE name = 'book'), '{"weight": "1.5"}');
--- Insert Furniture Product
+VALUES 
+    ('BOOK001', 'Book Product 1', 24.99, (SELECT id FROM product_types WHERE name = 'book'), '{"weight": "2.0"}'),
+    ('BOOK002', 'Book Product 2', 26.99, (SELECT id FROM product_types WHERE name = 'book'), '{"weight": "1.8"}'),
+    ('BOOK003', 'Book Product 3', 28.99, (SELECT id FROM product_types WHERE name = 'book'), '{"weight": "2.5"}'),
+    ('BOOK004', 'Book Product 4', 30.99, (SELECT id FROM product_types WHERE name = 'book'), '{"weight": "1.2"}');
+-- Insert 4 Furniture Products
 INSERT INTO products (sku, name, price, type_id, properties)
-VALUES ('FURN789', 'Furniture Example', 199.99, (SELECT id FROM product_types WHERE name = 'furniture'), '{"height": "120", "width": "80", "length": "180"}');
+VALUES 
+    ('FURN001', 'Furniture Product 1', 249.99, (SELECT id FROM product_types WHERE name = 'furniture'), '{"height": "150", "width": "90", "length": "200"}'),
+    ('FURN002', 'Furniture Product 2', 269.99, (SELECT id FROM product_types WHERE name = 'furniture'), '{"height": "180", "width": "120", "length": "240"}'),
+    ('FURN003', 'Furniture Product 3', 289.99, (SELECT id FROM product_types WHERE name = 'furniture'), '{"height": "160", "width": "100", "length": "220"}'),
+    ('FURN004', 'Furniture Product 4', 309.99, (SELECT id FROM product_types WHERE name = 'furniture'), '{"height": "140", "width": "80", "length": "180"}');
 
 --SELECT * FROM product_types;
 --SELECT * FROM type_properties;
