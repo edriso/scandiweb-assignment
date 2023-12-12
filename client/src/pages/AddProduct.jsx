@@ -103,9 +103,9 @@ function AddProduct({ queryClient }) {
       />
 
       <form method="POST" id="product_form" className="fade-in" ref={formRef}>
-        <FormRow name="sku" labelText="SKU" />
-        <FormRow name="name" />
-        <FormRow type="number" labelText="Price ($)" name="price" />
+        <FormRow name="sku" labelText="SKU" required />
+        <FormRow name="name" required />
+        <FormRow type="number" labelText="Price ($)" name="price" required />
         <FormRowSelect
           labelText="Type switcher"
           name="type_id"
