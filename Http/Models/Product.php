@@ -5,7 +5,7 @@ namespace Http\Models;
 use Core\Database;
 use Core\Response;
 use ReflectionClass;
-use Http\Models\Classes\ProductProperty;
+use Http\Models\Classes\PropertyType;
 
 abstract class Product {
     protected $sku;
@@ -63,31 +63,24 @@ abstract class Product {
         $expectedProperties = $this->getProperties();
 
         if (!is_array($properties) || count($properties) !== count($expectedProperties)) {
-            Response::abort("{$instanceTypeName} properties must include: " . implode(', ', $expectedProperties), 400);
+            Response::abort("{$instanceTypeName} properties must include: " . implode(', ', array_keys($expectedProperties)), 400);
         }
 
-        foreach ($expectedProperties as $propName) {
-            $this->validateSingleProperty($propName, $properties);
-        }
-    }
+        foreach ($expectedProperties as $propName => $propType) {
+            if (!isset($properties[$propName])) {
+                Response::abort("Missing property: $propName", 400);
+            }
 
-    protected function validateSingleProperty($propName, $properties) {
-        if (!isset($properties[$propName])) {
-            Response::abort("Missing property: $propName", 400);
-        }
-
-        $providedValue = $properties[$propName];
-        $expectedType = ProductProperty::getProductPropertyType($this->getInstanceTypeName(), $propName);
-
-        if (!$this->isValidType($providedValue, $expectedType)) {
-            Response::abort("Invalid data type for property $propName. Expected: $expectedType", 400);
+            if (!$this->isValidType($properties[$propName], $propType)) {
+                Response::abort("Invalid data type for property $propName. Expected: $propType", 400);
+            }
         }
     }
 
     protected function isValidType($value, $expectedType) {
-        if ($expectedType === ProductProperty::NUMERIC) {
+        if ($expectedType === PropertyType::NUMERIC) {
             return is_numeric($value);
-        } elseif ($expectedType === ProductProperty::STRING) {
+        } elseif ($expectedType === PropertyType::STRING) {
             return is_string($value);
         } else {
             return false;
