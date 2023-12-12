@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, useLoaderData } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { HeaderLayout, SingleProduct } from '../components';
 import { apiHandler } from '../utils/apiHandler.js';
 
@@ -31,7 +32,7 @@ function Products() {
       await apiHandler.delete(`/products?productIds=${checkedProducts.join()}`);
       setCheckedProducts([]);
     } catch (error) {
-      console.log('Something went wrong'); // TEMPORARY
+      toast.error(error?.response?.data?.message);
     }
 
     return navigate('/');

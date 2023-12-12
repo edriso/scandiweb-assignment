@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import { useNavigate, useLoaderData } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { HeaderLayout, FormRow, FormRowSelect } from '../components';
 import { apiHandler } from '../utils/apiHandler.js';
 
@@ -27,7 +28,7 @@ function AddProduct() {
       const response = await apiHandler.get(`/properties?type_id=${typeId}`);
       setSelectedTypeProperties(response.data.data);
     } catch (error) {
-      console.log(error?.response?.data?.message);
+      toast.error(error?.response?.data?.message);
     }
   };
 
@@ -42,7 +43,7 @@ function AddProduct() {
       await apiHandler.post('/products', JSON.stringify(productData));
       return navigate('/');
     } catch (error) {
-      console.log(error?.response?.data?.message);
+      toast.error(error?.response?.data?.message);
     }
   };
 
