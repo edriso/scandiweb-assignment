@@ -40,7 +40,7 @@ abstract class Product {
 
             switch ($field) {
                 case 'price':
-                    if (!is_numeric($fields[$field] || $fields[$field] < 0)) {
+                    if (!is_numeric($fields[$field]) || $fields[$field] < 0) {
                         Response::abort("Invalid data type for $field. Must be a non-negative number.", 400);
                     }
                     break;
