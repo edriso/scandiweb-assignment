@@ -3,7 +3,6 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Error, HomeLayout, Products, AddProduct } from './pages';
 import { ErrorElement } from './components';
-import { loader as productsLoader } from './pages/Products';
 import { loader as addProductLoader } from './pages/AddProduct';
 
 const queryClient = new QueryClient({
@@ -23,14 +22,12 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Products />,
-        errorElement: <ErrorElement message="Could not retrieve products" />,
-        loader: productsLoader,
       },
       {
         path: 'add-product',
         element: <AddProduct />,
         errorElement: <ErrorElement />,
-        loader: addProductLoader,
+        loader: addProductLoader(queryClient),
       },
     ],
   },

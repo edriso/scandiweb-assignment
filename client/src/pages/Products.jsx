@@ -1,21 +1,30 @@
 import { useState } from 'react';
-import { useNavigate, useLoaderData } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { HeaderLayout, SingleProduct } from '../components';
 import { apiHandler } from '../utils/apiHandler.js';
 
-export const loader = async () => {
-  const { data } = await apiHandler.get('/products');
-  return data;
-};
-
 function Products() {
+  const { isLoading, isError, data } = useQuery({
+    queryKey: ['products'],
+    queryFn: async () => {
+      const response = await apiHandler.get('/products');
+      return response.data;
+    },
+  });
+
   const navigate = useNavigate();
-  const {
-    data: { products },
-  } = useLoaderData();
 
   const [checkedProducts, setCheckedProducts] = useState([]);
+
+  if (isLoading) {
+    return <h4>Loading...</h4>;
+  }
+
+  if (isError) {
+    return <h4>Could not retrieve products</h4>;
+  }
 
   const handleCheckboxChange = (productId) => {
     setCheckedProducts((prevIds) => {
@@ -51,8 +60,8 @@ function Products() {
       />
 
       <section className="products__product-container">
-        {products.length ? (
-          products.map((product) => {
+        {data.data.products.length ? (
+          data.data.products.map((product) => {
             return (
               <SingleProduct key={product.id} product={product}>
                 <input

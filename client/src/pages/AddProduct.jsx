@@ -1,16 +1,25 @@
 import { useRef, useState } from 'react';
-import { useNavigate, useLoaderData } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { HeaderLayout, FormRow, FormRowSelect } from '../components';
 import { apiHandler } from '../utils/apiHandler.js';
 
-export const loader = async () => {
-  const { data } = await apiHandler.get('/types');
+const typesQuery = {
+  queryKey: ['types'],
+  queryFn: async () => {
+    const response = await apiHandler.get('/types');
+    return response.data.data;
+  },
+};
+
+export const loader = (queryClient) => async () => {
+  const data = await queryClient.ensureQueryData(typesQuery);
   return data;
 };
 
 function AddProduct() {
-  const { data: productTypes } = useLoaderData();
+  const { data: productTypes } = useQuery(typesQuery);
   const navigate = useNavigate();
   const formRef = useRef();
 
