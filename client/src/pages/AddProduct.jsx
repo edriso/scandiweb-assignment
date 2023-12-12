@@ -9,14 +9,26 @@ import { apiHandler } from '../utils/apiHandler.js';
 const typesQuery = {
   queryKey: ['types'],
   queryFn: async () => {
-    const response = await apiHandler.get('/types');
-    return response.data.data;
+    const { data } = await apiHandler.get('/types');
+    return data.data;
   },
 };
 
+const propertiesQuery = (typeId) => {
+  return {
+    queryKey: ['properties', typeId ?? ''],
+    queryFn: async () => {
+      const { data } = await apiHandler.get('/properties', {
+        params: { type_id: typeId },
+      });
+      return data;
+    },
+  };
+};
+
 export const loader = (queryClient) => async () => {
-  const data = await queryClient.ensureQueryData(typesQuery);
-  return data;
+  await queryClient.ensureQueryData(typesQuery);
+  return null;
 };
 
 function AddProduct({ queryClient }) {
@@ -35,8 +47,8 @@ function AddProduct({ queryClient }) {
     setSelectedType(selectedProductType);
 
     try {
-      const response = await apiHandler.get(`/properties?type_id=${typeId}`);
-      setSelectedTypeProperties(response.data.data);
+      const { data } = await queryClient.fetchQuery(propertiesQuery(typeId));
+      setSelectedTypeProperties(data);
     } catch (error) {
       toast.error(error?.response?.data?.message);
     }
