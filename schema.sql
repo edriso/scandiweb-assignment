@@ -1,6 +1,6 @@
---DROP DATABASE IF EXISTS scandiweb_test_products;
---CREATE DATABASE scandiweb_test_products;
---USE scandiweb_test_products;
+-- DROP DATABASE IF EXISTS scandiweb_test_products;
+-- CREATE DATABASE scandiweb_test_products;
+-- USE scandiweb_test_products;
 
 -- Table for Types
 CREATE TABLE product_types (
@@ -39,7 +39,7 @@ INSERT INTO product_types (name, measure_name, measure_unit) VALUES ('DVD', 'siz
 -- Insert Book Type
 INSERT INTO product_types (name, measure_name, measure_unit) VALUES ('book', 'weight', 'kg');
 -- Insert Furniture Type
-INSERT INTO product_types (name, measure_name, measure_unit) VALUES ('furniture', 'Dimenions', 'HxWxL');
+INSERT INTO product_types (name, measure_name, measure_unit) VALUES ('furniture', 'dimensions', 'HxWxL');
 
 -- Assuming 'DVD' type has a property named 'Size'
 INSERT INTO type_properties (type_id, name, unit)
@@ -76,6 +76,6 @@ VALUES
     ('FURN003', 'Furniture Product 3', 289.99, (SELECT id FROM product_types WHERE name = 'furniture'), '{"height": "160", "width": "100", "length": "220"}'),
     ('FURN004', 'Furniture Product 4', 309.99, (SELECT id FROM product_types WHERE name = 'furniture'), '{"height": "140", "width": "80", "length": "180"}');
 
---SELECT * FROM product_types;
---SELECT * FROM type_properties;
---SELECT * FROM products;
+-- SELECT * FROM product_types;
+-- SELECT * FROM type_properties;
+-- SELECT * FROM products;
