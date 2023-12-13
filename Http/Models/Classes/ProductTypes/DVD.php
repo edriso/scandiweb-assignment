@@ -15,6 +15,6 @@ class DVD extends Product {
     }
 
     public static function description(array $properties): string {
-        return 'Size: ' . $properties['size'] . ' MB';
+        return 'size: ' . $properties['size'] . ' MB';
     }
 }

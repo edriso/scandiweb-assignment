@@ -17,6 +17,6 @@ class Furniture extends Product {
     }
 
     public static function description(array $properties): string {
-        return 'Dimensions: ' . $properties['height'] . 'x' . $properties['width'] . 'x' . $properties['length'];
+        return 'dimensions: ' . $properties['height'] . 'x' . $properties['width'] . 'x' . $properties['length'];
     }
 }

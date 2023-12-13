@@ -15,6 +15,6 @@ class Book extends Product {
     }
 
     public static function description(array $properties): string {
-        return 'Weight: ' . $properties['weight'] . ' KG';
+        return 'weight: ' . $properties['weight'] . ' KG';
     }
 }
