@@ -8,13 +8,20 @@ button,
   color: $white;
   background-color: $primary;
   border: 0;
-  border-radius: 0.75rem;
   cursor: pointer;
   overflow: hidden;
-  transition: background-color 200ms ease-in-out;
+  transition: background-color 300ms ease-in;
 
   &:hover {
     background-color: $secondary;
+  }
+
+  &.btn-cancel {
+    background-color: $light-gray;
+    color: $primary;
+    &:hover {
+      background-color: $white;
+    }
   }
 
   &:disabled {

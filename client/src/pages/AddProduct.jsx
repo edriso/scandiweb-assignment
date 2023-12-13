@@ -98,6 +98,7 @@ function AddProduct({ queryClient }) {
         title="Product Add"
         btnOneText="Save"
         btnTwoText="Cancel"
+        btnTwoClasses="btn-cancel"
         btnOneAction={() => handleSubmit(queryClient)}
         btnTwoAction={() => navigate('/')}
       />
