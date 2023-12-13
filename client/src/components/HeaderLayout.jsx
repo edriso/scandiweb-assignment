@@ -8,8 +8,8 @@ function HeaderLayout({
   btnTwoAction,
   btnOneId,
   btnTwoId,
-  btnOneClasses,
-  btnTwoClasses,
+  btnOneClass,
+  btnTwoClass,
   btnOneDisabled = false,
   btnTwoDisabled = false,
 }) {
@@ -21,7 +21,7 @@ function HeaderLayout({
         <button
           onClick={btnOneAction}
           id={btnOneId}
-          className={btnOneClasses}
+          className={btnOneClass}
           disabled={btnOneDisabled}
         >
           {btnOneText}
@@ -29,7 +29,7 @@ function HeaderLayout({
         <button
           onClick={btnTwoAction}
           id={btnTwoId}
-          className={btnTwoClasses}
+          className={btnTwoClass}
           disabled={btnTwoDisabled}
         >
           {btnTwoText}
@@ -47,8 +47,8 @@ HeaderLayout.propTypes = {
   btnTwoAction: PropTypes.func,
   btnOneId: PropTypes.string,
   btnTwoId: PropTypes.string,
-  btnOneClasses: PropTypes.string,
-  btnTwoClasses: PropTypes.string,
+  btnOneClass: PropTypes.string,
+  btnTwoClass: PropTypes.string,
   btnOneDisabled: PropTypes.bool,
   btnTwoDisabled: PropTypes.bool,
 };
