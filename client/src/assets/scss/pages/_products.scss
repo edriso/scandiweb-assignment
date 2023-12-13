@@ -9,17 +9,28 @@
   .single-product {
     flex: 1;
     min-width: 25rem;
-    border: 2px solid;
+    border: 2px solid $gray;
     padding: 1.5rem;
-    padding-bottom: 2rem;
-    text-align: center;
-    position: relative;
 
     input[type='checkbox'] {
       cursor: pointer;
       display: block;
       width: 1rem;
       height: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    &__price {
+      color: $secondary;
+      font-weight: bold;
+      span {
+        font-size: 90%;
+      }
+    }
+
+    &__description {
+      margin-top: 0.25rem;
+      color: $gray;
     }
   }
 }
