@@ -6,14 +6,22 @@
 
   label {
     text-transform: capitalize;
-    width: 5rem;
-    display: inline-block;
-    flex-basis: content;
+    min-width: 9rem;
   }
 
   input,
   select {
-    padding: 0.25rem 0.5rem;
+    background-color: transparent;
+    padding: 0.5rem 0.75rem;
+    border: 2px solid $gray;
+    font-family: inherit;
+    outline: none;
+    transition: background-color 350ms ease;
+    min-width: 12rem;
+
+    &:focus {
+      background-color: $white;
+    }
   }
 
   .input-required {
