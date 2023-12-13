@@ -12,17 +12,10 @@
     border: 2px solid $gray;
     padding: 1.5rem;
 
-    input[type='checkbox'] {
-      cursor: pointer;
-      display: block;
-      width: 1rem;
-      height: 1rem;
-      margin-bottom: 0.5rem;
-    }
-
     &__price {
       color: $secondary;
       font-weight: bold;
+
       span {
         font-size: 90%;
       }
@@ -31,6 +24,30 @@
     &__description {
       margin-top: 0.25rem;
       color: $gray;
+    }
+  }
+
+  &__checkbox-container {
+    margin-bottom: 0.5rem;
+
+    label {
+      cursor: pointer;
+      text-transform: lowercase;
+      border: 1px solid $gray;
+      min-width: unset;
+      line-height: 1;
+      padding: 0 0.25rem;
+      transition: all 350ms ease;
+    }
+
+    input:checked + label {
+      background-color: $secondary;
+      border-color: $secondary;
+      color: $white;
+    }
+
+    input[type='checkbox'] {
+      display: none;
     }
   }
 }

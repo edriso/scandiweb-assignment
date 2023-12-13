@@ -19,14 +19,6 @@ function Products({ queryClient }) {
 
   const [checkedProducts, setCheckedProducts] = useState([]);
 
-  if (isLoading) {
-    return <h4>Loading...</h4>;
-  }
-
-  if (isError) {
-    return <h4>Could not retrieve products</h4>;
-  }
-
   const handleCheckboxChange = (productId) => {
     setCheckedProducts((prevIds) => {
       if (prevIds.includes(productId)) {
@@ -50,6 +42,14 @@ function Products({ queryClient }) {
     return navigate('/');
   };
 
+  if (isLoading) {
+    return <h4>Loading...</h4>;
+  }
+
+  if (isError) {
+    return <h4>Could not retrieve the products at the moment!</h4>;
+  }
+
   return (
     <main className="products">
       <HeaderLayout
@@ -67,17 +67,21 @@ function Products({ queryClient }) {
           data.data.products.map((product) => {
             return (
               <SingleProduct key={product.id} product={product}>
-                <input
-                  type="checkbox"
-                  className="delete-checkbox"
-                  value={product.id}
-                  onChange={() => handleCheckboxChange(product.id)}
-                />
+                <div className="products__checkbox-container">
+                  <input
+                    type="checkbox"
+                    id={`product-${product.id}`}
+                    className="delete-checkbox"
+                    value={product.id}
+                    onChange={() => handleCheckboxChange(product.id)}
+                  />
+                  <label htmlFor={`product-${product.id}`}>x</label>
+                </div>
               </SingleProduct>
             );
           })
         ) : (
-          <p>No products to show</p>
+          <p>No products to show!</p>
         )}
       </section>
     </main>
