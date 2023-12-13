@@ -17,6 +17,7 @@ The application offers two essential pages:
   - [Getting Started](#getting-started)
   - [Project Structure](#project-structure)
   - [API Documentation](#api-documentation)
+  - [Preview](#preview)
 
 ## Prerequisites
 
@@ -102,3 +103,7 @@ The project structure is designed to maintain clarity and organization. Here's a
 ## API Documentation
 
 Explore the detailed API documentation using [Postman Documentation](https://documenter.getpostman.com/view/15155550/2s9Ykhg4M9).
+
+## Preview
+
+![](preview.mp4)
