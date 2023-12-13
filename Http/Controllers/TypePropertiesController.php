@@ -14,7 +14,7 @@ class TypePropertiesController
         }
         
         $db = new Database();
-        $query = 'SELECT id, name, unit FROM type_properties WHERE type_id = :type_id';
+        $query = 'SELECT id, name, unit FROM type_properties WHERE type_id = :type_id ORDER BY id';
         $properties = $db->query($query, [
             'type_id' => $typeId,
         ])->getOrFail();
