@@ -2,10 +2,14 @@
 
 Welcome to my repository for Scandiweb Junior Developer test assignment. This web application is crafted using PHP, MySQL, Reactjs, React Query v4 (for efficient query caching), and SASS.
 
-The application offers two essential pages:
+The application provides a user-friendly experience with two fundamental pages:
 
-1. **Product List Page**: Displaying a comprehensive list of products with various details and supporting delete functionality.
-2. **Add Product Page**: Empowering users to seamlessly add new products to the system.
+1. **Product List Page**: This page presents a list of products, and the ability to delete items seamlessly.
+
+2. **Add Product Page**: Where users can effortlessly add new products to the system.
+
+[Preview the app in 38 seconds!](https://youtu.be/Fyy5NrsOgqo)
+[![Video Link](public/screenshot.png)](https://youtu.be/Fyy5NrsOgqo)
 
 <!-- **[Task Details](https://scandiweb.notion.site/Junior-Developer-Test-Task-1b2184e40dea47df840b7c0cc638e61e)** -->
 
@@ -17,7 +21,6 @@ The application offers two essential pages:
   - [Getting Started](#getting-started)
   - [Project Structure](#project-structure)
   - [API Documentation](#api-documentation)
-  - [Preview](#preview)
 
 ## Prerequisites
 
@@ -103,7 +106,3 @@ The project structure is designed to maintain clarity and organization. Here's a
 ## API Documentation
 
 Explore the detailed API documentation using [Postman Documentation](https://documenter.getpostman.com/view/15155550/2s9Ykhg4M9).
-
-## Preview
-
-![](preview.mp4)
