@@ -4,6 +4,7 @@ function FormRowSelect({
   name,
   labelText,
   placeholder,
+  id,
   defaultValue = '',
   list = [],
   required = false,
@@ -11,14 +12,14 @@ function FormRowSelect({
 }) {
   return (
     <div className="form-row">
-      <label htmlFor={name}>
+      <label htmlFor={id || name}>
         {labelText || name}
         {required && <span className="input-required"> *</span>}
       </label>
       <select
         className="text-capitalize"
         name={name}
-        id={name}
+        id={id || name}
         defaultValue={defaultValue || placeholder}
         onChange={onChange}
         required={required}
@@ -41,6 +42,7 @@ FormRowSelect.propTypes = {
   defaultValue: PropTypes.string,
   labelText: PropTypes.string,
   placeholder: PropTypes.string,
+  id: PropTypes.string,
   list: PropTypes.array,
   required: PropTypes.bool,
   onChange: PropTypes.func,

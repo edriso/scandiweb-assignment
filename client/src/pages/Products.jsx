@@ -69,7 +69,7 @@ function Products({ queryClient }) {
               <SingleProduct key={product.id} product={product}>
                 <input
                   type="checkbox"
-                  name="delete-checkbox"
+                  className="delete-checkbox"
                   value={product.id}
                   onChange={() => handleCheckboxChange(product.id)}
                 />

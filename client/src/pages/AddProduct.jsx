@@ -109,6 +109,7 @@ function AddProduct({ queryClient }) {
         <FormRowSelect
           labelText="Type switcher"
           name="type_id"
+          id="productType"
           placeholder="Please Select Type"
           list={productTypes}
           onChange={(e) => handleTypeChange(e.target.value)}
@@ -117,7 +118,13 @@ function AddProduct({ queryClient }) {
       </form>
 
       {!!selectedTypeProperties.length && (
-        <div id={selectedType.name} className="product-type-container">
+        <div
+          id={
+            selectedType.name.charAt(0).toUpperCase() +
+            selectedType.name.slice(1)
+          }
+          className="product-type-container"
+        >
           {selectedTypeProperties.map((property) => {
             return (
               <FormRow
@@ -130,6 +137,7 @@ function AddProduct({ queryClient }) {
                     [property.name]: e.target.value,
                   })
                 }
+                required
               />
             );
           })}
