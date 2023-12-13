@@ -8,6 +8,6 @@ import { Slide, ToastContainer } from 'react-toastify';
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <App />
-    <ToastContainer position="top-right" transition={Slide} autoClose={2000} />
+    <ToastContainer position="top-center" transition={Slide} autoClose={2000} />
   </React.StrictMode>
 );
