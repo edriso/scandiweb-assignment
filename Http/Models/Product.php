@@ -45,7 +45,7 @@ abstract class Product {
                     }
                     break;
                 case 'name':
-                    if (!is_string($fields[$field])) {
+                    if (!is_string($fields[$field]) || is_numeric($fields[$field])) {
                         Response::abort("Invalid data type for $field. Must be a string.", 400);
                     }
                     break;
