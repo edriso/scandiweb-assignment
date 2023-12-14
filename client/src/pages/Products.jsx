@@ -43,11 +43,11 @@ function Products({ queryClient }) {
   };
 
   if (isLoading) {
-    return <h4>Loading...</h4>;
+    return <main>Loading...</main>;
   }
 
   if (isError) {
-    return <h4>Could not retrieve the products at the moment!</h4>;
+    return <main>Could not retrieve the products at the moment!</main>;
   }
 
   return (
