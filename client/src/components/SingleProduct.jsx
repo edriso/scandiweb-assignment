@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 
 function SingleProduct({ product, children }) {
-  console.log(product);
   return (
     <section className="single-product fade-in">
       {children}
