@@ -106,7 +106,7 @@ abstract class Product {
 
     public static function getAll() {
         $db = new Database();
-        $query = 'SELECT p.id, p.sku, p.name, p.price, p.type_id, p.properties, t.name 
+        $query = 'SELECT p.id, p.sku, p.name, p.price, p.type_id, p.properties, t.name AS type 
                   FROM products p
                   JOIN product_types t ON p.type_id = t.id
                   ORDER BY p.id DESC';
@@ -116,7 +116,7 @@ abstract class Product {
         $products = [];
         
         foreach ($productsData as $productData) {
-            $productType = 'Http\Models\Classes\ProductTypes\\' . ucfirst($productData['name']);
+            $productType = 'Http\Models\Classes\ProductTypes\\' . ucfirst($productData['type']);
             $productData['description'] = $productType::description(json_decode($productData['properties'], true));
             unset($productData['properties'], $productData['type_id']);
             $products[] = $productData;
