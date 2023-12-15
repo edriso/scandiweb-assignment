@@ -31,7 +31,11 @@ function Products({ queryClient }) {
 
   const handleDelete = async () => {
     try {
-      await apiHandler.delete(`/products?productIds=${checkedProducts.join()}`);
+      await apiHandler.delete('/products', {
+        params: {
+          productIds: checkedProducts.join(),
+        },
+      });
       setCheckedProducts([]);
       queryClient.invalidateQueries(['products']);
       return navigate('/');
