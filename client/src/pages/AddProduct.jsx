@@ -45,6 +45,7 @@ function AddProduct({ queryClient }) {
       (type) => type.id === Number(typeId)
     );
     setSelectedType(selectedProductType);
+    setProperties([]);
 
     try {
       const { data } = await queryClient.fetchQuery(propertiesQuery(typeId));
