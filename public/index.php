@@ -1,6 +1,7 @@
 <?php
 
 header('Access-Control-Allow-Methods: GET, POST, DELETE, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type, Authorization');
 
 const BASE_PATH = __DIR__.'/../';
 $config = require(BASE_PATH . 'config.php');
