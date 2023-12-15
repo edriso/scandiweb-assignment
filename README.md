@@ -101,7 +101,7 @@ The project structure is designed to maintain clarity and organization. Here's a
 
   - **routes.php**: This file is the home for API routes, defining paths along with their corresponding controllers and actions. It provides a clear map for handling incoming requests.
 
-  - **Http/**: Within this directory, you'll find controllers and models specific to this application, handling vital server-side logic.
+  - **Http/**: Within this directory, you'll find controllers, validations, and models specific to this application, handling vital server-side logic.
 
 ## API Documentation
 
