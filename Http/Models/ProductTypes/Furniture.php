@@ -1,15 +1,15 @@
 <?php
 
-namespace Http\Models\Classes\ProductTypes;
+namespace Http\Models\ProductTypes;
 
+use Core\DataType;
 use Http\Models\Product;
-use Http\Models\Classes\PropertyType;
 
 class Furniture extends Product {
     private $props = [
-        'height' => PropertyType::NUMERIC,
-        'width' => PropertyType::NUMERIC,
-        'length' => PropertyType::NUMERIC,
+        'height' => DataType::NUMERIC,
+        'width' => DataType::NUMERIC,
+        'length' => DataType::NUMERIC,
     ];
 
     protected function getProperties(): array {
