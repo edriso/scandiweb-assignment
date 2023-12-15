@@ -8,8 +8,8 @@ The application provides a user-friendly experience with two fundamental pages:
 
 2. **Add Product Page**: Where users can effortlessly add new products to the system.
 
-[Preview the app in 38 seconds!](https://youtu.be/Fyy5NrsOgqo)
-[![Video Link](public/screenshot.png)](https://youtu.be/Fyy5NrsOgqo)
+[Preview the app in 48 seconds!](https://youtu.be/2IST2s2vXg0)
+[![Video Link](public/screenshot.png)](https://youtu.be/2IST2s2vXg0)
 
 <!-- **[Task Details](https://scandiweb.notion.site/Junior-Developer-Test-Task-1b2184e40dea47df840b7c0cc638e61e)** -->
 
