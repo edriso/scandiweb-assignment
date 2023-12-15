@@ -58,8 +58,8 @@ function Products({ queryClient }) {
     <main className="products">
       <HeaderLayout
         title="Product List"
-        btnOneText="Add"
-        btnTwoText="Mass Delete"
+        btnOneText="ADD"
+        btnTwoText="MASS DELETE"
         btnOneAction={() => navigate('/add-product')}
         btnTwoAction={handleDelete}
         btnTwoId="delete-product-btn"
