@@ -38,12 +38,9 @@ function Products({ queryClient }) {
       });
       setCheckedProducts([]);
       queryClient.invalidateQueries(['products']);
-      return navigate('/');
     } catch (error) {
       toast.error(error?.response?.data?.message);
     }
-
-    return navigate('/');
   };
 
   if (isError) {
