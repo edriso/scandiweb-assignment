@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
@@ -17,26 +16,22 @@ function Products({ queryClient }) {
 
   const navigate = useNavigate();
 
-  const [checkedProducts, setCheckedProducts] = useState([]);
-
-  const handleCheckboxChange = (productId) => {
-    setCheckedProducts((prevIds) => {
-      if (prevIds.includes(productId)) {
-        return prevIds.filter((id) => id !== productId);
-      } else {
-        return [...prevIds, productId];
-      }
-    });
-  };
-
   const handleDelete = async () => {
+    const checkedProducts = [];
+    const checkboxes = document.querySelectorAll(
+      'input.delete-checkbox:checked'
+    );
+
+    for (const checkbox of checkboxes) {
+      checkedProducts.push(checkbox.value);
+    }
+
     try {
-      await apiHandler.delete('/products', {
+      await apiHandler.get('/products-delete', {
         params: {
           productIds: checkedProducts.join(),
         },
       });
-      setCheckedProducts([]);
       queryClient.invalidateQueries(['products']);
     } catch (error) {
       toast.error(error?.response?.data?.message);
@@ -56,7 +51,6 @@ function Products({ queryClient }) {
         btnOneAction={() => navigate('/add-product')}
         btnTwoAction={handleDelete}
         btnTwoId="delete-product-btn"
-        btnTwoDisabled={checkedProducts.length === 0}
       />
 
       {isLoading ? (
@@ -73,7 +67,6 @@ function Products({ queryClient }) {
                       id={`product-${product.id}`}
                       className="delete-checkbox"
                       value={product.id}
-                      onChange={() => handleCheckboxChange(product.id)}
                     />
                     <label htmlFor={`product-${product.id}`}>x</label>
                   </div>

@@ -29,6 +29,6 @@ class ProductsController
 
         $productIds = explode(',', $_GET['productIds']);
         Product::deleteByIds($productIds);
-        Response::sendJsonResponse([], 204);
+        Response::sendJsonResponse(['message' => 'Success!'], 200);
     }
 }

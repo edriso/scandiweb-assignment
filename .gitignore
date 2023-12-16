@@ -1,6 +1,6 @@
 /vendor/
 .env
 
-/public/assets/
-/public/favicon.ico
-/public/index.html
+/assets/
+favicon.ico
+index.html
