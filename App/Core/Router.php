@@ -1,44 +1,52 @@
 <?php
 
-namespace Core;
+namespace App\Core;
 
-class Router {
+class Router
+{
     private $routes = [];
 
     // made add public incase we wanted to use it like this:
     // $router->add('GET', '/', 'controller.php');
-    public function add($method, $uri, $handler) {
+    public function add($method, $uri, $handler)
+    {
         $controller = $handler['controller'] ?? $handler;
         $action = $handler['action'] ?? 'index';
 
-        $this->routes[] = compact('method','uri','controller', 'action');
-        
+        $this->routes[] = compact('method', 'uri', 'controller', 'action');
+
         return $this;
     }
 
-    public function get($uri, $handler) {
+    public function get($uri, $handler)
+    {
         return $this->add('GET', $uri, $handler);
     }
 
-    public function post($uri, $handler) {
+    public function post($uri, $handler)
+    {
         return $this->add('POST', $uri, $handler);
     }
 
-    public function delete($uri, $handler) {
+    public function delete($uri, $handler)
+    {
         return $this->add('DELETE', $uri, $handler);
     }
 
-    public function patch($uri, $handler) {
+    public function patch($uri, $handler)
+    {
         return $this->add('PATCH', $uri, $handler);
     }
 
-    public function put($uri, $handler) {
+    public function put($uri, $handler)
+    {
         return $this->add('PUT', $uri, $handler);
     }
 
-    public function route($uri, $method) {
+    public function route($uri, $method)
+    {
         if (strpos($uri, '/api/') !== 0) {
-            return require(BASE_PATH . 'public/index.html');
+            return require(base_path('public/index.html'));
         }
 
         foreach ($this->routes as $route) {
@@ -46,7 +54,7 @@ class Router {
                 $route['uri'] === $uri &&
                 $route['method'] === strtoupper($method)
             ) {
-                $controllerClass = 'Http\Controllers\\' . $route['controller'];
+                $controllerClass = generate_controller_namespace($route['controller']);
                 $action = $route['action'];
                 try {
                     $controller = new $controllerClass();
@@ -60,6 +68,4 @@ class Router {
 
         Response::abort();
     }
-
-    
 }

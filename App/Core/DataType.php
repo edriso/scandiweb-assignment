@@ -1,8 +1,9 @@
 <?php
 
-namespace Core;
+namespace App\Core;
 
-class DataType {
+class DataType
+{
     const NUMERIC = 'numeric';
     const STRING = 'string';
 }

@@ -1,20 +1,22 @@
 <?php
 
-namespace Http\Models;
+namespace App\Http\Models;
 
-use Core\Database;
-use Core\Response;
+use App\Core\Database;
+use App\Core\Response;
 use ReflectionClass;
-use Http\Validations\ProductValidation;
+use App\Http\Validations\ProductValidation;
 
-abstract class Product {
+abstract class Product
+{
     protected $sku;
     protected $name;
     protected $price;
     protected $typeId;
     protected $properties;
 
-    public function __construct($attributes) {
+    public function __construct($attributes)
+    {
         ProductValidation::validateMandatoryFields($attributes);
 
         $this->sku = $attributes['sku'];
@@ -30,7 +32,8 @@ abstract class Product {
         );
     }
 
-    public static function getAll() {
+    public static function getAll()
+    {
         $db = new Database();
         $query = 'SELECT p.id, p.sku, p.name, p.price, p.type_id, p.properties, t.name AS type 
                   FROM products p
@@ -40,7 +43,7 @@ abstract class Product {
 
         $products = [];
         foreach ($productsData as $productData) {
-            $productType = 'Http\Models\ProductTypes\\' . ucfirst($productData['type']);
+            $productType = generate_product_type_namespace(ucfirst($productData['type']));
             $productData['description'] = $productType::description(json_decode($productData['properties'], true));
             unset($productData['properties'], $productData['type_id']);
             $products[] = $productData;
@@ -49,13 +52,13 @@ abstract class Product {
         return $products;
     }
 
-    public static function create($attributes) {
+    public static function create($attributes)
+    {
         if (!isset($attributes['type_id'])) {
             Response::abort('Missing type_id', 400);
         }
 
-        $productType = 'Http\Models\ProductTypes\\' . self::getTypeName($attributes['type_id']);
-
+        $productType = generate_product_type_namespace(self::getTypeName($attributes['type_id']));
         $productInstance = new $productType($attributes);
 
         $db = new Database();
@@ -73,7 +76,8 @@ abstract class Product {
         return get_object_vars($productInstance);
     }
 
-    public static function deleteByIds(array $productIds) {
+    public static function deleteByIds(array $productIds)
+    {
         ProductValidation::validateIds($productIds);
 
         $db = new Database();
@@ -82,11 +86,13 @@ abstract class Product {
         $db->query($query, $productIds);
     }
 
-    protected function getInstanceTypeName() {
+    protected function getInstanceTypeName()
+    {
         return (new ReflectionClass($this))->getShortName();
     }
 
-    protected static function getTypeName($typeId) {
+    protected static function getTypeName($typeId)
+    {
         $db = new Database();
         $query = 'SELECT name FROM product_types WHERE id = ?';
         $productType = $db->query($query, [$typeId])->getOneOrFail();

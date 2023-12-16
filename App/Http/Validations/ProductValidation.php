@@ -1,11 +1,12 @@
 <?php
 
-namespace Http\Validations;
+namespace App\Http\Validations;
 
-use Core\DataType;
-use Core\Response;
+use App\Core\DataType;
+use App\Core\Response;
 
-class ProductValidation {
+class ProductValidation
+{
     public static function validateMandatoryFields($fields)
     {
         $mandatoryFields = ['sku', 'name', 'price'];
@@ -63,7 +64,8 @@ class ProductValidation {
         }
     }
 
-    public static function validateIds(array $idArr) {
+    public static function validateIds(array $idArr)
+    {
         foreach ($idArr as $id) {
             if (!is_numeric($id) || $id <= 0) {
                 Response::abort('Invalid product(s) ID.', 400);
