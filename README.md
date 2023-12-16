@@ -103,7 +103,7 @@ The project structure is designed to maintain clarity and organization. Here's a
 
   - **config.php**: A file that returns the configuration settings.
 
-- **public/**: Serves as the hosting location for index.php and the compiled front end, ensuring accessibility for users.
+- **/**: Serves as the hosting location for index.php and the compiled front end, ensuring accessibility for users.
 
 - **.env**: Reserved for environment variables.
 
