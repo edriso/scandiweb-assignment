@@ -120,13 +120,7 @@ function AddProduct({ queryClient }) {
       </form>
 
       {!!selectedTypeProperties.length && (
-        <div
-          id={
-            selectedType.name.charAt(0).toUpperCase() +
-            selectedType.name.slice(1)
-          }
-          className="product-type-container"
-        >
+        <div id={selectedType.name} className="product-type-container">
           {selectedTypeProperties.map((property) => {
             return (
               <FormRow
