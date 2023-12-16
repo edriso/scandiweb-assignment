@@ -1,12 +1,14 @@
 <?php
 
-namespace Http\Controllers;
+namespace App\Http\Controllers;
 
-use Core\Response;
-use Core\Database;
+use App\Core\Response;
+use App\Core\Database;
 
-class ProductTypesController {
-    public function index() {
+class ProductTypesController
+{
+    public function index()
+    {
         $db = new Database();
         $products = $db->query(
             'SELECT

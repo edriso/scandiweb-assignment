@@ -1,9 +1,11 @@
 <?php
 
-namespace Core;
+namespace App\Core;
 
-class Request {
-    public static function parseJsonRequest() {
+class Request
+{
+    public static function parseJsonRequest()
+    {
         $jsonData = file_get_contents('php://input');
         $data = json_decode($jsonData, true);
 

@@ -1,18 +1,20 @@
 <?php
 
-namespace Core;
+namespace App\Core;
 
 use PDO;
 use PDOException;
 
-class Database {
+class Database
+{
     private $connection;
     private $statement;
     private $config;
-    
-    public function __construct() {
+
+    public function __construct()
+    {
         try {
-            $this->config = require(BASE_PATH . 'config.php');
+            $this->config = require(app_path('config.php'));
             $dsn = 'mysql:' . http_build_query($this->config['database'], '', ';');
 
             $this->connection = new PDO($dsn, options: [
@@ -24,7 +26,8 @@ class Database {
         }
     }
 
-    public function query($query, $params = []) {
+    public function query($query, $params = [])
+    {
         try {
             $this->statement = $this->connection->prepare($query);
             $this->statement->execute($params);
@@ -34,13 +37,15 @@ class Database {
         }
     }
 
-    public function get() {
+    public function get()
+    {
         return $this->statement->fetchAll();
     }
-    
-    public function getOrFail() {
-        $result =  $this->statement->fetchAll();
-        
+
+    public function getOrFail()
+    {
+        $result = $this->statement->fetchAll();
+
         if (empty($result)) {
             Response::abort('Invalid request', 400);
         }
@@ -48,13 +53,15 @@ class Database {
         return $result;
     }
 
-    public function getOne() {
+    public function getOne()
+    {
         return $this->statement->fetch();
     }
 
-    public function getOneOrFail() {
-        $result =  $this->statement->fetch();
-        
+    public function getOneOrFail()
+    {
+        $result = $this->statement->fetch();
+
         if (!$result) {
             Response::abort('Invalid request', 400);
         }
@@ -62,7 +69,8 @@ class Database {
         return $result;
     }
 
-    private function handleError($errorMessage, $errorDetails = '') {
+    private function handleError($errorMessage, $errorDetails = '')
+    {
         http_response_code(500);
         header('Content-Type: application/json');
 
@@ -82,7 +90,7 @@ class Database {
         } else if (preg_match("/Incorrect (.*?) value: '(.*?)' for column '(.*?)'/", $errorDetails, $matches)) {
             $value = $matches[2];
             $fieldName = strtoupper($matches[3]);
-    
+
             $response['message'] = "Incorrect value '$value' for field $fieldName";
         }
 
