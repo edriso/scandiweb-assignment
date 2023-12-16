@@ -3,6 +3,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Error, HomeLayout, Products, AddProduct } from './pages';
 import { ErrorElement } from './components';
+import { loader as productsLoader } from './pages/Products';
 import { loader as addProductLoader } from './pages/AddProduct';
 
 const queryClient = new QueryClient({
@@ -22,6 +23,7 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Products queryClient={queryClient} />,
+        loader: productsLoader(queryClient),
       },
       {
         path: 'add-product',
