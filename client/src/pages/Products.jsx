@@ -46,10 +46,6 @@ function Products({ queryClient }) {
     return navigate('/');
   };
 
-  if (isLoading) {
-    return <main>Loading...</main>;
-  }
-
   if (isError) {
     return <main>Could not retrieve the products at the moment!</main>;
   }
@@ -66,28 +62,32 @@ function Products({ queryClient }) {
         btnTwoDisabled={checkedProducts.length === 0}
       />
 
-      <section className="products__product-container">
-        {data.data.products.length ? (
-          data.data.products.map((product) => {
-            return (
-              <SingleProduct key={product.id} product={product}>
-                <div className="products__checkbox-container">
-                  <input
-                    type="checkbox"
-                    id={`product-${product.id}`}
-                    className="delete-checkbox"
-                    value={product.id}
-                    onChange={() => handleCheckboxChange(product.id)}
-                  />
-                  <label htmlFor={`product-${product.id}`}>x</label>
-                </div>
-              </SingleProduct>
-            );
-          })
-        ) : (
-          <p>No products to show!</p>
-        )}
-      </section>
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : (
+        <section className="products__product-container">
+          {data.data.products.length ? (
+            data.data.products.map((product) => {
+              return (
+                <SingleProduct key={product.id} product={product}>
+                  <div className="products__checkbox-container">
+                    <input
+                      type="checkbox"
+                      id={`product-${product.id}`}
+                      className="delete-checkbox"
+                      value={product.id}
+                      onChange={() => handleCheckboxChange(product.id)}
+                    />
+                    <label htmlFor={`product-${product.id}`}>x</label>
+                  </div>
+                </SingleProduct>
+              );
+            })
+          ) : (
+            <p>No products to show!</p>
+          )}
+        </section>
+      )}
     </main>
   );
 }
