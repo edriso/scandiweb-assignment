@@ -1,6 +1,10 @@
 /vendor/
 .env
 
+# build client
 /public/assets/
 /public/favicon.ico
 /public/index.html
+/assets/
+favicon.ico
+index.html
