@@ -46,7 +46,7 @@ class Router
     public function route($uri, $method)
     {
         if (strpos($uri, '/api/') !== 0) {
-            return require(base_path('public/index.html'));
+            return require(base_path('index.html'));
         }
 
         foreach ($this->routes as $route) {
