@@ -10,8 +10,8 @@ function Products({ queryClient }) {
   const { isLoading, isError, data } = useQuery({
     queryKey: ['products'],
     queryFn: async () => {
-      const response = await apiHandler.get('/products');
-      return response.data;
+      const { data } = await apiHandler.get('/products');
+      return data.data;
     },
   });
 
@@ -63,8 +63,8 @@ function Products({ queryClient }) {
         <p>Loading...</p>
       ) : (
         <section className="products__product-container">
-          {data.data.products.length ? (
-            data.data.products.map((product) => {
+          {data.products.length ? (
+            data.products.map((product) => {
               return (
                 <SingleProduct key={product.id} product={product}>
                   <div className="products__checkbox-container">
