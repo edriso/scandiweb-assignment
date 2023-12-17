@@ -91,7 +91,7 @@ The project structure is designed to maintain clarity and organization. Here's a
 
 - **client/**: This directory houses the ReactJS frontend, serving as the space where the user interface is developed and managed. All frontend-related assets and components are neatly organized within this section.
 
-- **App/**: Houses the PHP backend code, containing the essential server-side logic that powers the application. It's further structured for improved organization:
+- **app/**: Houses the PHP backend code, containing the essential server-side logic that powers the application. It's further structured for improved organization:
 
   - **Core/**: This directory holds PHP core models and functions designed for broader usability across projects. It serves as a repository for reusable and foundational code.
 

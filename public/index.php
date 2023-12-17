@@ -4,7 +4,7 @@ header('Access-Control-Allow-Methods: GET, POST, DELETE, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, Authorization');
 
 const BASE_PATH = __DIR__ . '/../';
-$config = require(BASE_PATH . 'App/config.php');
+$config = require(BASE_PATH . 'app/config.php');
 
 if ($config['app']['env'] === 'development') {
     header('Access-Control-Allow-Origin: *');
@@ -17,7 +17,7 @@ if ($config['app']['env'] === 'development') {
 }
 
 require(BASE_PATH . 'vendor/autoload.php');
-require(BASE_PATH . 'App/helpers.php');
+require(BASE_PATH . 'app/helpers.php');
 
 $router = new \App\Core\Router();
 $routes = require(app_path('routes.php'));
