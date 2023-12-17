@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Models\ProductTypes;
+namespace App\Models\ProductTypes;
 
 use App\Core\DataType;
-use App\Http\Models\Product;
+use App\Models\Product;
 
-class Book extends Product
+class DVD extends Product
 {
     private $props = [
-        'weight' => DataType::NUMERIC,
+        'size' => DataType::NUMERIC,
     ];
 
     protected function getProperties(): array
@@ -18,6 +18,6 @@ class Book extends Product
 
     public static function description(array $properties): string
     {
-        return 'weight: ' . $properties['weight'] . ' KG';
+        return 'size: ' . $properties['size'] . ' MB';
     }
 }

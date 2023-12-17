@@ -10,14 +10,14 @@ function app_path($path)
     return base_path('App/' . $path);
 }
 
-function generate_controller_namespace($fileName)
+function get_controller_namespace($fileName)
 {
     return 'App\Http\Controllers\\' . $fileName;
 }
 
-function generate_product_type_namespace($fileName)
+function get_product_type_namespace($fileName)
 {
-    return 'App\Http\Models\ProductTypes\\' . $fileName;
+    return 'App\Models\ProductTypes\\' . $fileName;
 }
 
 function dd($value)

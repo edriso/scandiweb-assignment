@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Models;
+namespace App\Models;
 
 use App\Core\Database;
 use App\Core\Response;
@@ -43,7 +43,7 @@ abstract class Product
 
         $products = [];
         foreach ($productsData as $productData) {
-            $productType = generate_product_type_namespace(ucfirst($productData['type']));
+            $productType = get_product_type_namespace(ucfirst($productData['type']));
             $productData['description'] = $productType::description(json_decode($productData['properties'], true));
             unset($productData['properties'], $productData['type_id']);
             $products[] = $productData;
@@ -58,7 +58,7 @@ abstract class Product
             Response::abort('Missing type_id', 400);
         }
 
-        $productType = generate_product_type_namespace(self::getTypeName($attributes['type_id']));
+        $productType = get_product_type_namespace(self::getTypeName($attributes['type_id']));
         $productInstance = new $productType($attributes);
 
         $db = new Database();

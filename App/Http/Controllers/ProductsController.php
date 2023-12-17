@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Core\Request;
 use App\Core\Response;
-use App\Http\Models\Product;
+use App\Models\Product;
 
 class ProductsController
 {

@@ -54,7 +54,7 @@ class Router
                 $route['uri'] === $uri &&
                 $route['method'] === strtoupper($method)
             ) {
-                $controllerClass = generate_controller_namespace($route['controller']);
+                $controllerClass = get_controller_namespace($route['controller']);
                 $action = $route['action'];
                 try {
                     $controller = new $controllerClass();

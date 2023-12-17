@@ -95,7 +95,9 @@ The project structure is designed to maintain clarity and organization. Here's a
 
   - **Core/**: This directory holds PHP core models and functions designed for broader usability across projects. It serves as a repository for reusable and foundational code.
 
-  - **Http/**: Within this directory, you'll find controllers, validations, and models specific to this application, handling vital server-side logic.
+  - **Http/**: Within this directory, you'll find controllers and validations specific to the application. These components handle the server-side logic related to processing incoming HTTP requests and managing the application's HTTP routes.
+
+  - **Models/**: Contains models associated with the application. These models represent the underlying data structures and business logic of your application, encapsulating the interactions with your database or other data sources.
 
   - **routes.php**: This file acts as the headquarters for API routes, defining paths along with their corresponding controllers and actions. It presents a clear map for handling incoming requests.
 

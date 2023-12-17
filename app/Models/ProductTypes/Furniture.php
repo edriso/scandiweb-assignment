@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Models\ProductTypes;
+namespace App\Models\ProductTypes;
 
 use App\Core\DataType;
-use App\Http\Models\Product;
+use App\Models\Product;
 
 class Furniture extends Product
 {
