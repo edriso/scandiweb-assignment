@@ -11,6 +11,9 @@ button,
   cursor: pointer;
   overflow: hidden;
   transition: background-color 300ms ease-in;
+  @include breakpoint-down(small) {
+    padding: 0.25rem 0.75rem;
+  }
 
   &:hover {
     background-color: $secondary;
