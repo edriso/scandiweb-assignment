@@ -4,7 +4,7 @@ function SingleProduct({ product, children }) {
   return (
     <section className="single-product fade-in">
       {children}
-      <div className="flex flex-jc-sb">
+      <div className="flex flex-jc-sb gap-2">
         <p>{product.name}</p>
         <p className="single-product__price">
           <span>$</span>
